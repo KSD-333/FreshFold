@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <!-- Waistband -->
+    <path
+        android:fillColor="@color/brand_indigo"
+        android:pathData="M3,2 L21,2 L21,5 L3,5 Z" />
+    <!-- Left leg -->
+    <path
+        android:fillColor="@color/brand_indigo"
+        android:pathData="M3,5 L11,5 L10,22 L4,22 Z" />
+    <!-- Right leg -->
+    <path
+        android:fillColor="@color/brand_indigo"
+        android:pathData="M13,5 L21,5 L20,22 L14,22 Z" />
+    <!-- Center gap between legs -->
+    <path
+        android:fillColor="@android:color/transparent"
+        android:pathData="M11,5 L13,5 L13,12 L11,12 Z" />
+    <!-- Belt buckle highlight -->
+    <path
+        android:fillColor="@color/brand_indigo_light"
+        android:pathData="M10,2.5 L14,2.5 L14,4.5 L10,4.5 Z" />
+</vector>

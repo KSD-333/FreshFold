@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="100"
+    android:viewportHeight="100">
+
+    <!-- Background circle (transparent) -->
+
+    <!-- Head - skin tone -->
+    <path
+        android:fillColor="#F0C27F"
+        android:pathData="M50,8 a14,14 0 1,0 0.01,0 Z" />
+
+    <!-- Hair - dark brown -->
+    <path
+        android:fillColor="#3B2A1A"
+        android:pathData="M36,16 Q36,6 50,6 Q64,6 64,16 Q60,10 50,10 Q40,10 36,16 Z" />
+
+    <!-- Neck - skin tone -->
+    <path
+        android:fillColor="#F0C27F"
+        android:pathData="M45,30 L55,30 L55,38 L45,38 Z" />
+
+    <!-- Shirt collar - white -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M45,36 L50,42 L55,36 L58,38 L50,48 L42,38 Z" />
+
+    <!-- Tie - dark gray -->
+    <path
+        android:fillColor="#4A4A4A"
+        android:pathData="M50,40 L47,48 L50,72 L53,48 Z" />
+
+    <!-- Suit body - brown -->
+    <path
+        android:fillColor="#8B5E3C"
+        android:pathData="M28,38 Q35,34 45,36 L42,38 L40,95 L60,95 L58,38 L55,36 Q65,34 72,38 L75,95 L25,95 Z" />
+
+    <!-- Left suit lapel - slightly lighter brown -->
+    <path
+        android:fillColor="#A0714F"
+        android:pathData="M28,38 L42,38 L40,60 L25,55 Z" />
+
+    <!-- Right suit lapel - slightly lighter brown -->
+    <path
+        android:fillColor="#A0714F"
+        android:pathData="M72,38 L58,38 L60,60 L75,55 Z" />
+
+    <!-- Left shoulder highlight -->
+    <path
+        android:fillColor="#9B6B45"
+        android:pathData="M28,38 Q26,50 25,65 L35,65 L38,38 Z" />
+
+    <!-- Right shoulder highlight -->
+    <path
+        android:fillColor="#9B6B45"
+        android:pathData="M72,38 Q74,50 75,65 L65,65 L62,38 Z" />
+
+</vector>

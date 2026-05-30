@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="512px"
+    android:height="512px"
+    android:viewportWidth="512"
+    android:viewportHeight="512">
+
+    <!-- Box body -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#000000"
+        android:strokeWidth="22"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M 30,200 L 30,390 Q 30,420 60,420 L 340,420 Q 370,420 370,390 L 370,200" />
+
+    <!-- Box top left flap -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#000000"
+        android:strokeWidth="22"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M 30,200 L 200,140 L 370,200" />
+
+    <!-- Box top right side line -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#000000"
+        android:strokeWidth="22"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M 370,200 L 370,150" />
+
+    <!-- Bookmark/tag on box top -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#000000"
+        android:strokeWidth="20"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M 165,140 L 165,230 L 200,210 L 235,230 L 235,140 Z" />
+
+    <!-- Location pin - filled solid -->
+    <path
+        android:fillColor="#000000"
+        android:pathData="M 390,290 C 390,250 420,220 460,220 C 500,220 530,250 530,290 C 530,340 460,410 460,410 C 460,410 390,340 390,290 Z" />
+
+    <!-- Location pin inner circle -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M 440,290 C 440,279 449,270 460,270 C 471,270 480,279 480,290 C 480,301 471,310 460,310 C 449,310 440,301 440,290 Z" />
+
+</vector>

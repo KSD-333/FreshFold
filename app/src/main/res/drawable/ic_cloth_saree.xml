@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <!-- Saree — draped fabric body -->
+    <path
+        android:fillColor="@color/brand_indigo"
+        android:pathData="M6,2 C4,4 3,7 3,10 C3,14 5,17 7,19 L7,22 L11,22 L11,18 C13,17 14,15 14,12 C14,9 13,7 11,5 C10,4 9,3 8,2 Z" />
+    <!-- Pallu (the draped end flowing over shoulder) -->
+    <path
+        android:fillColor="@color/brand_indigo_light"
+        android:pathData="M8,2 C10,3 13,5 15,8 C17,11 17,15 15,18 C17,17 20,14 20,10 C20,6 18,3 15,2 Z" />
+    <!-- Border stripe at bottom -->
+    <path
+        android:fillColor="@color/brand_indigo_light"
+        android:pathData="M7,19 C8,19.5 10,20 11,19.5 L11,22 L7,22 Z" />
+    <!-- Decorative border line -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="0.6"
+        android:pathData="M4,15 C6,16 9,16.5 11,16" />
+</vector>

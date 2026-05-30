@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "719131994324",
+    "project_id": "freshfold-f6d4f",
+    "storage_bucket": "freshfold-f6d4f.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:719131994324:android:db7b64903d914bb719b341",
+        "android_client_info": {
+          "package_name": "com.ankita.freshfold"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAzzCyKy9y27BokdGY7sr_EtVq1pPAZbDQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

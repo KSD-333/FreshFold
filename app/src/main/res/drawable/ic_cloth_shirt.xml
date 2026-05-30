@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <!-- Formal shirt with collar -->
+    <path
+        android:fillColor="@color/brand_indigo"
+        android:pathData="M9,2 L6,4 L2,3 L1,9 L5,9 L5,22 L19,22 L19,9 L23,9 L22,3 L18,4 L15,2 L12.5,5 L10.5,2 Z" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M10.5,2 L12,4.5 L13.5,2 L12.5,5 L11.5,5 Z" />
+</vector>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <!-- Green background circle -->
+    <path
+        android:fillColor="#25D366"
+        android:pathData="M12,2C6.48,2 2,6.48 2,12c0,1.74 0.46,3.37 1.26,4.78L2,22l5.36,-1.24C8.67,21.56 10.29,22 12,22c5.52,0 10,-4.48 10,-10S17.52,2 12,2z" />
+
+    <!-- White phone handset -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M16.75,14.51l-1.96,-0.56c-0.24,-0.07 -0.5,0 -0.68,0.18l-0.69,0.69c-0.18,0.18 -0.44,0.25 -0.68,0.17 -1.0,-0.32 -2.94,-2.06 -3.3,-3.06 -0.09,-0.24 -0.02,-0.51 0.16,-0.69l0.68,-0.68c0.18,-0.18 0.25,-0.44 0.18,-0.68L10.1,7.92C9.97,7.38 9.48,7 8.93,7L7.5,7C6.67,7 6,7.67 6,8.5c0,4.69 4.31,9 9,9 0.83,0 1.5,-0.67 1.5,-1.5v-1.43c0,-0.55 -0.38,-1.04 -0.75,-1.06z" />
+</vector>

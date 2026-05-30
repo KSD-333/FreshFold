@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="360dp"
+    android:height="60dp"
+    android:viewportWidth="360"
+    android:viewportHeight="60">
+
+    <!--
+        Single deep wave:
+        - Starts at 0 height on left
+        - Dips down to 40 in center
+        - Comes back up on right
+        - Fills to bottom with app bg color
+    -->
+    <path
+        android:fillColor="#F2F6FF"
+        android:pathData="M0,60 L0,30 C90,-5 270,55 360,20 L360,60 Z" />
+
+</vector>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="100"
+    android:viewportHeight="100">
+
+    <!-- Head - light skin tone -->
+    <path
+        android:fillColor="#FDDBB4"
+        android:pathData="M50,8 a13,13 0 1,0 0.01,0 Z" />
+
+    <!-- Hair - dark mauve/brown, long wavy -->
+    <path
+        android:fillColor="#7B4F5E"
+        android:pathData="M37,18 Q34,8 50,6 Q66,8 63,18 Q60,12 50,12 Q40,12 37,18 Z" />
+
+    <!-- Left long hair -->
+    <path
+        android:fillColor="#7B4F5E"
+        android:pathData="M37,18 Q28,28 30,50 Q32,60 35,65 Q30,55 32,40 Q33,28 38,22 Z" />
+
+    <!-- Right long hair -->
+    <path
+        android:fillColor="#7B4F5E"
+        android:pathData="M63,18 Q72,28 70,50 Q68,60 65,65 Q70,55 68,40 Q67,28 62,22 Z" />
+
+    <!-- Neck - skin tone -->
+    <path
+        android:fillColor="#FDDBB4"
+        android:pathData="M45,30 L55,30 L55,38 L45,38 Z" />
+
+    <!-- Inner shirt / blouse - white/cream -->
+    <path
+        android:fillColor="#F5F0E8"
+        android:pathData="M44,36 L50,44 L56,36 L58,40 L50,52 L42,40 Z" />
+
+    <!-- Orange blazer - left side -->
+    <path
+        android:fillColor="#D4722A"
+        android:pathData="M26,40 Q34,34 44,36 L42,40 L38,95 L25,95 Z" />
+
+    <!-- Orange blazer - right side -->
+    <path
+        android:fillColor="#D4722A"
+        android:pathData="M74,40 Q66,34 56,36 L58,40 L62,95 L75,95 Z" />
+
+    <!-- Blazer left lapel highlight -->
+    <path
+        android:fillColor="#E8843A"
+        android:pathData="M26,40 L42,40 L40,58 L26,52 Z" />
+
+    <!-- Blazer right lapel highlight -->
+    <path
+        android:fillColor="#E8843A"
+        android:pathData="M74,40 L58,40 L60,58 L74,52 Z" />
+
+    <!-- Center body / blouse visible -->
+    <path
+        android:fillColor="#F5F0E8"
+        android:pathData="M42,40 L50,52 L58,40 L60,95 L40,95 Z" />
+
+    <!-- Left arm shadow -->
+    <path
+        android:fillColor="#BF6422"
+        android:pathData="M26,40 Q22,55 24,70 L30,70 L32,40 Z" />
+
+    <!-- Right arm shadow -->
+    <path
+        android:fillColor="#BF6422"
+        android:pathData="M74,40 Q78,55 76,70 L70,70 L68,40 Z" />
+
+</vector>

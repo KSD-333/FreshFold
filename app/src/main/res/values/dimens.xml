@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Standard Spacing -->
+    <dimen name="spacing_tiny">4dp</dimen>
+    <dimen name="spacing_small">8dp</dimen>
+    <dimen name="spacing_medium">16dp</dimen>
+    <dimen name="spacing_large">24dp</dimen>
+    <dimen name="spacing_xlarge">32dp</dimen>
+    <dimen name="spacing_xxlarge">40dp</dimen>
+    <dimen name="spacing_xxxlarge">48dp</dimen>
+    <dimen name="spacing_huge">56dp</dimen>
+
+    <!-- Component Dimensions -->
+    <dimen name="button_height">56dp</dimen>
+    <dimen name="input_height">56dp</dimen>
+    <dimen name="input_height_large">64dp</dimen>
+    <dimen name="card_corner_radius_small">12dp</dimen>
+    <dimen name="card_corner_radius_medium">16dp</dimen>
+    <dimen name="card_corner_radius_large">22dp</dimen>
+    <dimen name="card_corner_radius_xlarge">40dp</dimen>
+    <dimen name="button_corner_radius">12dp</dimen>
+    <dimen name="button_corner_radius_large">20dp</dimen>
+    
+    <!-- Icons and Avatars -->
+    <dimen name="icon_size_small">24dp</dimen>
+    <dimen name="icon_size_medium">32dp</dimen>
+    <dimen name="icon_size_large">48dp</dimen>
+    <dimen name="profile_icon_size">52dp</dimen>
+    <dimen name="service_icon_size">68dp</dimen>
+    <dimen name="logo_size_login">180dp</dimen>
+    <dimen name="logo_size_reg">150dp</dimen>
+
+    <!-- Text Sizes -->
+    <dimen name="text_tiny">10sp</dimen>
+    <dimen name="text_small">11sp</dimen>
+    <dimen name="text_caption">12sp</dimen>
+    <dimen name="text_hint">13sp</dimen>
+    <dimen name="text_normal">14sp</dimen>
+    <dimen name="text_body">15sp</dimen>
+    <dimen name="text_medium">16sp</dimen>
+    <dimen name="text_large">18sp</dimen>
+    <dimen name="text_xlarge">20sp</dimen>
+    <dimen name="text_xxlarge">24sp</dimen>
+    <dimen name="text_xxxlarge">40sp</dimen>
+    <dimen name="text_title">24sp</dimen>
+    <dimen name="text_headline">28sp</dimen>
+    <dimen name="text_display">32sp</dimen>
+</resources>

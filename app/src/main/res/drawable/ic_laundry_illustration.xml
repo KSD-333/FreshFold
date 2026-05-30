@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="220dp"
+    android:height="200dp"
+    android:viewportWidth="220"
+    android:viewportHeight="200">
+
+    <!-- ── BACKGROUND ROUNDED RECT (light purple) ── -->
+    <path
+        android:pathData="M20,30 Q20,10 40,10 L180,10 Q200,10 200,30 L200,160 Q200,180 180,180 L40,180 Q20,180 20,160 Z"
+        android:fillColor="#EDE9FF" />
+
+    <!-- ── WASHING MACHINE BODY ── -->
+    <path
+        android:pathData="M50,40 Q50,35 55,35 L145,35 Q150,35 150,40 L150,155 Q150,160 145,160 L55,160 Q50,160 50,155 Z"
+        android:fillColor="#FFFFFF"
+        android:strokeColor="#D0C8FF"
+        android:strokeWidth="1.5" />
+
+    <!-- Machine top panel (dark) -->
+    <path
+        android:pathData="M50,35 Q50,30 55,30 L145,30 Q150,30 150,35 L150,55 L50,55 Z"
+        android:fillColor="#5B4FCF" />
+
+    <!-- Control dots on top panel -->
+    <path
+        android:pathData="M70,43 m-5,0 a5,5 0 1,0 10,0 a5,5 0 1,0 -10,0"
+        android:fillColor="#FFFFFF"
+        android:fillAlpha="0.9" />
+    <path
+        android:pathData="M90,43 m-4,0 a4,4 0 1,0 8,0 a4,4 0 1,0 -8,0"
+        android:fillColor="#FFFFFF"
+        android:fillAlpha="0.5" />
+    <path
+        android:pathData="M107,40 L130,40 Q133,40 133,43 L133,46 Q133,49 130,49 L107,49 Q104,49 104,46 L104,43 Q104,40 107,40 Z"
+        android:fillColor="#FFFFFF"
+        android:fillAlpha="0.3" />
+
+    <!-- ── DOOR OUTER RING ── -->
+    <path
+        android:pathData="M100,70 m-38,0 a38,38 0 1,0 76,0 a38,38 0 1,0 -76,0"
+        android:fillColor="#D0C8FF" />
+
+    <!-- Door inner ring -->
+    <path
+        android:pathData="M100,70 m-32,0 a32,32 0 1,0 64,0 a32,32 0 1,0 -64,0"
+        android:fillColor="#FFFFFF" />
+
+    <!-- Door glass (light blue tint) -->
+    <path
+        android:pathData="M100,70 m-26,0 a26,26 0 1,0 52,0 a26,26 0 1,0 -52,0"
+        android:fillColor="#EAE6FF" />
+
+    <!-- Clothes inside drum -->
+    <path
+        android:pathData="M80,62 Q90,55 100,60 Q110,65 120,58 Q125,70 118,78 Q108,85 95,82 Q82,79 78,70 Z"
+        android:fillColor="#7B6CFF"
+        android:fillAlpha="0.6" />
+    <path
+        android:pathData="M82,75 Q92,80 102,76 Q112,72 118,78 Q112,88 100,90 Q88,90 82,82 Z"
+        android:fillColor="#5B4FCF"
+        android:fillAlpha="0.5" />
+
+    <!-- Door handle -->
+    <path
+        android:pathData="M126,66 L130,66 Q133,66 133,70 L133,74 Q133,77 130,77 L126,77 Z"
+        android:fillColor="#9C8FFF" />
+
+    <!-- ── BOTTOM PANEL ── -->
+    <path
+        android:pathData="M50,148 L150,148 L150,160 Q150,165 145,165 L55,165 Q50,165 50,160 Z"
+        android:fillColor="@color/tint_indigo" />
+
+    <!-- Bottom panel details -->
+    <path
+        android:pathData="M58,154 L72,154 Q74,154 74,156 L74,158 Q74,160 72,160 L58,160 Q56,160 56,158 L56,156 Q56,154 58,154 Z"
+        android:fillColor="#D0C8FF" />
+    <path
+        android:pathData="M78,154 L92,154 Q94,154 94,156 L94,158 Q94,160 92,160 L78,160 Q76,160 76,158 L76,156 Q76,154 78,154 Z"
+        android:fillColor="#D0C8FF" />
+
+    <!-- ── LAUNDRY BASKET (right side) ── -->
+    <!-- Basket body -->
+    <path
+        android:pathData="M155,120 Q153,115 158,113 L185,113 Q190,115 188,120 L184,158 Q183,163 178,163 L165,163 Q160,163 159,158 Z"
+        android:fillColor="#FF8C69" />
+
+    <!-- Basket weave lines horizontal -->
+    <path
+        android:pathData="M157,122 L187,122"
+        android:strokeColor="#FF6B45"
+        android:strokeWidth="1"
+        android:fillColor="#00000000" />
+    <path
+        android:pathData="M157,130 L186,130"
+        android:strokeColor="#FF6B45"
+        android:strokeWidth="1"
+        android:fillColor="#00000000" />
+    <path
+        android:pathData="M158,138 L185,138"
+        android:strokeColor="#FF6B45"
+        android:strokeWidth="1"
+        android:fillColor="#00000000" />
+    <path
+        android:pathData="M159,146 L184,146"
+        android:strokeColor="#FF6B45"
+        android:strokeWidth="1"
+        android:fillColor="#00000000" />
+    <path
+        android:pathData="M160,154 L183,154"
+        android:strokeColor="#FF6B45"
+        android:strokeWidth="1"
+        android:fillColor="#00000000" />
+
+    <!-- Basket weave lines vertical -->
+    <path
+        android:pathData="M163,113 L161,163"
+        android:strokeColor="#FF6B45"
+        android:strokeWidth="1"
+        android:fillColor="#00000000" />
+    <path
+        android:pathData="M171,113 L171,163"
+        android:strokeColor="#FF6B45"
+        android:strokeWidth="1"
+        android:fillColor="#00000000" />
+    <path
+        android:pathData="M179,113 L181,163"
+        android:strokeColor="#FF6B45"
+        android:strokeWidth="1"
+        android:fillColor="#00000000" />
+
+    <!-- Basket rim -->
+    <path
+        android:pathData="M154,110 Q154,106 158,106 L186,106 Q190,106 190,110 L190,115 Q190,119 186,119 L158,119 Q154,119 154,115 Z"
+        android:fillColor="#FFB347" />
+
+    <!-- Clothes sticking out of basket -->
+    <path
+        android:pathData="M158,108 Q162,98 168,100 Q170,106 165,110 Z"
+        android:fillColor="#7B6CFF" />
+    <path
+        android:pathData="M168,106 Q172,95 178,97 Q181,104 175,109 Z"
+        android:fillColor="#FF8FAB" />
+    <path
+        android:pathData="M178,108 Q182,99 187,102 Q188,108 183,111 Z"
+        android:fillColor="#5BC8AF" />
+
+    <!-- ── DETERGENT BOTTLE (left of machine) ── -->
+    <path
+        android:pathData="M28,130 Q28,125 32,125 L44,125 Q48,125 48,130 L48,162 Q48,166 44,166 L32,166 Q28,166 28,162 Z"
+        android:fillColor="#7B6CFF" />
+    <!-- Bottle cap -->
+    <path
+        android:pathData="M31,122 Q31,118 36,118 L40,118 Q45,118 45,122 L45,127 L31,127 Z"
+        android:fillColor="#5B4FCF" />
+    <!-- Bottle label -->
+    <path
+        android:pathData="M30,135 L46,135 L46,150 L30,150 Z"
+        android:fillColor="#FFFFFF"
+        android:fillAlpha="0.3" />
+    <!-- Bottle shine -->
+    <path
+        android:pathData="M32,128 L34,128 L34,160 L32,160 Z"
+        android:fillColor="#FFFFFF"
+        android:fillAlpha="0.2" />
+
+    <!-- ── PLANT LEFT ── -->
+    <!-- Pot -->
+    <path
+        android:pathData="M18,168 Q17,163 22,162 L36,162 Q41,163 40,168 L38,175 Q37,178 29,178 Q21,178 20,175 Z"
+        android:fillColor="#E8A87C" />
+    <!-- Pot rim -->
+    <path
+        android:pathData="M17,160 Q17,156 22,156 L36,156 Q41,156 41,160 L41,164 Q41,168 36,168 L22,168 Q17,168 17,164 Z"
+        android:fillColor="#D4845A" />
+    <!-- Soil -->
+    <path
+        android:pathData="M19,158 Q19,155 22,155 L36,155 Q39,155 39,158 L39,162 L19,162 Z"
+        android:fillColor="#8B6347" />
+    <!-- Stem -->
+    <path
+        android:pathData="M29,155 L29,130"
+        android:strokeColor="#5A8A3C"
+        android:strokeWidth="2"
+        android:fillColor="#00000000" />
+    <!-- Leaves -->
+    <path
+        android:pathData="M29,148 Q20,142 18,132 Q26,130 32,138 Z"
+        android:fillColor="#6DB33F" />
+    <path
+        android:pathData="M29,140 Q38,134 40,124 Q32,122 26,130 Z"
+        android:fillColor="#5A9E32" />
+    <path
+        android:pathData="M29,132 Q22,126 21,118 Q29,117 33,125 Z"
+        android:fillColor="#6DB33F" />
+
+    <!-- ── PLANT RIGHT (small) ── -->
+    <!-- Pot -->
+    <path
+        android:pathData="M192,170 Q191,166 195,165 L205,165 Q209,166 208,170 L207,176 Q206,179 200,179 Q194,179 193,176 Z"
+        android:fillColor="#E8A87C" />
+    <!-- Pot rim -->
+    <path
+        android:pathData="M191,163 Q191,160 195,160 L205,160 Q209,160 209,163 L209,167 Q209,170 205,170 L195,170 Q191,170 191,167 Z"
+        android:fillColor="#D4845A" />
+    <!-- Stem -->
+    <path
+        android:pathData="M200,162 L200,145"
+        android:strokeColor="#5A8A3C"
+        android:strokeWidth="1.5"
+        android:fillColor="#00000000" />
+    <!-- Leaves small -->
+    <path
+        android:pathData="M200,158 Q194,153 193,146 Q199,145 202,151 Z"
+        android:fillColor="#6DB33F" />
+    <path
+        android:pathData="M200,152 Q206,147 207,140 Q201,139 198,145 Z"
+        android:fillColor="#5A9E32" />
+
+    <!-- ── BUBBLES ── -->
+    <path
+        android:pathData="M165,95 m-5,0 a5,5 0 1,0 10,0 a5,5 0 1,0 -10,0"
+        android:fillColor="#D0C8FF"
+        android:fillAlpha="0.7" />
+    <path
+        android:pathData="M178,85 m-3.5,0 a3.5,3.5 0 1,0 7,0 a3.5,3.5 0 1,0 -7,0"
+        android:fillColor="#B8AEFF"
+        android:fillAlpha="0.6" />
+    <path
+        android:pathData="M170,78 m-2.5,0 a2.5,2.5 0 1,0 5,0 a2.5,2.5 0 1,0 -5,0"
+        android:fillColor="#D0C8FF"
+        android:fillAlpha="0.5" />
+
+    <!-- ── FLOOR LINE ── -->
+    <path
+        android:pathData="M15,178 L205,178"
+        android:strokeColor="#D0C8FF"
+        android:strokeWidth="1.5"
+        android:fillColor="#00000000" />
+
+</vector>

@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bottomNav"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    android:orientation="horizontal"
+    android:background="@drawable/bg_bottom_nav"
+    android:elevation="16dp"
+    android:weightSum="5"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:paddingHorizontal="4dp"
+    android:layout_gravity="bottom"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent">
+
+    <!-- Home -->
+    <LinearLayout
+        android:id="@+id/navHome"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:paddingVertical="8dp">
+
+        <ImageView
+            android:id="@+id/ivHome"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:src="@drawable/home"
+            app:tint="@color/text_hint_color" />
+
+        <TextView
+            android:id="@+id/tvHome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Home"
+            android:textColor="@color/text_hint_color"
+            android:textSize="10sp"
+            android:fontFamily="sans-serif-medium"
+            android:layout_marginTop="4dp" />
+    </LinearLayout>
+
+    <!-- Services -->
+    <LinearLayout
+        android:id="@+id/navServices"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:paddingTop="2dp"
+        android:paddingBottom="14dp">
+
+        <ImageView
+            android:id="@+id/ivServices"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginBottom="2dp"
+            android:src="@drawable/iron"
+            app:tint="@color/text_hint_color" />
+
+        <TextView
+            android:id="@+id/tvServices"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Services"
+            android:textColor="@color/text_hint_color"
+            android:textSize="10sp"
+            android:fontFamily="sans-serif-medium"
+            android:layout_marginTop="0dp" />
+    </LinearLayout>
+
+    <!-- Cart -->
+    <LinearLayout
+        android:id="@+id/navCart"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:paddingVertical="8dp">
+
+        <ImageView
+            android:id="@+id/ivCart"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_cart"
+            app:tint="@color/text_hint_color" />
+
+        <TextView
+            android:id="@+id/tvCart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cart"
+            android:textColor="@color/text_hint_color"
+            android:textSize="10sp"
+            android:fontFamily="sans-serif-medium"
+            android:layout_marginTop="4dp" />
+    </LinearLayout>
+
+    <!-- Wallet -->
+    <LinearLayout
+        android:id="@+id/navWallet"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:paddingVertical="8dp">
+
+        <ImageView
+            android:id="@+id/ivWallet"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:src="@drawable/ic_wallet_outline"
+            app:tint="@color/text_hint_color" />
+
+        <TextView
+            android:id="@+id/tvWallet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Wallet"
+            android:textColor="@color/text_hint_color"
+            android:textSize="10sp"
+            android:fontFamily="sans-serif-medium"
+            android:layout_marginTop="4dp" />
+    </LinearLayout>
+
+    <!-- Profile -->
+    <LinearLayout
+        android:id="@+id/navProfile"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:paddingVertical="8dp">
+
+        <ImageView
+            android:id="@+id/ivProfile"
+            android:layout_width="26dp"
+            android:layout_height="22dp"
+            android:src="@drawable/profile"
+            app:tint="@color/text_hint_color" />
+
+        <TextView
+            android:id="@+id/tvProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Profile"
+            android:textColor="@color/text_hint_color"
+            android:textSize="10sp"
+            android:fontFamily="sans-serif-medium"
+            android:layout_marginTop="4dp" />
+    </LinearLayout>
+
+</LinearLayout>

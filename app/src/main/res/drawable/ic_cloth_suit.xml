@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <!-- Suit jacket body -->
+    <path
+        android:fillColor="@color/brand_indigo"
+        android:pathData="M9,2 L5,5 L1,4 L1,10 L5,10 L5,22 L19,22 L19,10 L23,10 L23,4 L19,5 L15,2 L13,7 L11,7 Z" />
+    <!-- Left lapel -->
+    <path
+        android:fillColor="@color/brand_indigo_light"
+        android:pathData="M9,2 L11,7 L8,11 L5,10 L5,5 Z" />
+    <!-- Right lapel -->
+    <path
+        android:fillColor="@color/brand_indigo_light"
+        android:pathData="M15,2 L13,7 L16,11 L19,10 L19,5 Z" />
+    <!-- Tie — drawn as path -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M11,7 L13,7 L12.5,13 L12,14 L11.5,13 Z" />
+    <!-- Pocket square — drawn as path instead of rect -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M6,11 L9,11 L9,13 L6,13 Z" />
+</vector>
