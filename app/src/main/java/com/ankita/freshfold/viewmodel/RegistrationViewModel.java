@@ -252,6 +252,14 @@ public class RegistrationViewModel extends ViewModel {
 
             _isLoading.setValue(false);
             if (giveReward) {
+                java.util.Map<String, Object> txn = new java.util.HashMap<>();
+                txn.put("title", "Registration Bonus");
+                txn.put("amount", "100.00");
+                txn.put("emoji", "🎁");
+                txn.put("isCredit", true);
+                txn.put("timestamp", System.currentTimeMillis());
+                txn.put("userPhone", phone);
+                userRepository.saveTransaction(phone, null, txn);
                 _toastMessage.setValue("₹100 bonus added to your wallet!");
             }
             _toastMessage.setValue("Registration successful! Please login.");

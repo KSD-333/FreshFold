@@ -150,6 +150,7 @@ public class MyOrdersFragment extends Fragment {
 
             Order order = new Order(cartItems);
             order.setId(doc.getId());
+            order.setDocumentPath(doc.getReference().getPath());
             if (doc.getString("status") != null) order.setStatus(doc.getString("status"));
             if (doc.getString("address") != null) order.setAddress(doc.getString("address"));
 

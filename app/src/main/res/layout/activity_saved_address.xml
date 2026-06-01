@@ -141,9 +141,79 @@
                     android:textColor="@color/text_h1"
                     android:textSize="15sp" />
 
+                <!-- Geolocation Button -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnGetCurrentLocation"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginBottom="12dp"
+                    android:text="Use Current Location"
+                    app:icon="@drawable/ic_location_pin"
+                    app:iconGravity="textStart"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    app:strokeColor="@color/brand_primary"
+                    android:textColor="@color/brand_primary"
+                    app:cornerRadius="14dp" />
+
+                <!-- Select City -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilCity"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="6dp"
+                    android:hint="Select City"
+                    app:boxCornerRadiusBottomEnd="14dp"
+                    app:boxCornerRadiusBottomStart="14dp"
+                    app:boxCornerRadiusTopEnd="14dp"
+                    app:boxCornerRadiusTopStart="14dp"
+                    app:boxStrokeColor="@color/brand_primary"
+                    app:boxBackgroundColor="#F0F9FF"
+                    app:startIconDrawable="@drawable/ic_location_pin"
+                    app:startIconTint="@color/brand_primary">
+                    <AutoCompleteTextView
+                        android:id="@+id/actvCity"
+                        android:layout_width="match_parent"
+                        android:layout_height="52dp"
+                        android:inputType="none"
+                        android:paddingLeft="16dp"
+                        android:paddingRight="16dp"
+                        android:textColor="@color/text_h1"
+                        android:textSize="14sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Select Area / Locality -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilArea"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="6dp"
+                    android:hint="Select Area / Locality"
+                    app:boxCornerRadiusBottomEnd="14dp"
+                    app:boxCornerRadiusBottomStart="14dp"
+                    app:boxCornerRadiusTopEnd="14dp"
+                    app:boxCornerRadiusTopStart="14dp"
+                    app:boxStrokeColor="@color/brand_primary"
+                    app:boxBackgroundColor="#F0F9FF"
+                    app:startIconDrawable="@drawable/ic_location_pin"
+                    app:startIconTint="@color/brand_primary">
+                    <AutoCompleteTextView
+                        android:id="@+id/actvArea"
+                        android:layout_width="match_parent"
+                        android:layout_height="52dp"
+                        android:inputType="none"
+                        android:paddingLeft="16dp"
+                        android:paddingRight="16dp"
+                        android:textColor="@color/text_h1"
+                        android:textSize="14sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
                 <!-- Select Society -->
                 <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:id="@+id/tilSociety"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="6dp"
@@ -153,37 +223,63 @@
                     app:boxCornerRadiusTopEnd="14dp"
                     app:boxCornerRadiusTopStart="14dp"
                     app:boxStrokeColor="@color/brand_primary"
-                    app:boxStrokeWidth="1.5dp"
                     app:boxBackgroundColor="#F0F9FF"
-                    app:endIconMode="dropdown_menu"
                     app:startIconDrawable="@drawable/ic_location_pin"
                     app:startIconTint="@color/brand_primary">
                     <AutoCompleteTextView
                         android:id="@+id/actvSociety"
                         android:layout_width="match_parent"
                         android:layout_height="52dp"
-                        android:inputType="text"
+                        android:completionThreshold="1"
+                        android:inputType="textCapWords"
                         android:paddingLeft="16dp"
                         android:paddingRight="16dp"
                         android:textColor="@color/text_h1"
                         android:textSize="14sp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <!-- Society-specific fields -->
-                <LinearLayout
-                    android:id="@+id/layoutSocietyFields"
+                <!-- Select Building / Wing -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilBuilding"
+                    android:visibility="gone"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:visibility="gone"
-                    android:layout_marginTop="4dp">
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    android:layout_marginBottom="6dp"
+                    android:hint="Building / Wing"
+                    app:boxCornerRadiusBottomEnd="14dp"
+                    app:boxCornerRadiusBottomStart="14dp"
+                    app:boxCornerRadiusTopEnd="14dp"
+                    app:boxCornerRadiusTopStart="14dp"
+                    app:boxStrokeColor="@color/brand_primary"
+                    app:boxBackgroundColor="#F0F9FF">
+                    <AutoCompleteTextView
+                        android:id="@+id/actvBuilding"
                         android:layout_width="match_parent"
+                        android:layout_height="52dp"
+                        android:inputType="none"
+                        android:paddingLeft="16dp"
+                        android:paddingRight="16dp"
+                        android:textColor="@color/text_h1"
+                        android:textSize="14sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <LinearLayout
+                    android:id="@+id/layoutFloorFlat"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+                    <!-- Select Floor -->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tilFloor"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="6dp"
-                        android:hint="Building / Wing"
+                        android:layout_weight="1"
+                        android:layout_marginRight="6dp"
+                        android:hint="Floor"
                         app:boxCornerRadiusBottomEnd="14dp"
                         app:boxCornerRadiusBottomStart="14dp"
                         app:boxCornerRadiusTopEnd="14dp"
@@ -191,7 +287,7 @@
                         app:boxStrokeColor="@color/brand_primary"
                         app:boxBackgroundColor="#F0F9FF">
                         <AutoCompleteTextView
-                            android:id="@+id/actvBuilding"
+                            android:id="@+id/actvFloor"
                             android:layout_width="match_parent"
                             android:layout_height="52dp"
                             android:inputType="none"
@@ -201,58 +297,29 @@
                             android:textSize="14sp" />
                     </com.google.android.material.textfield.TextInputLayout>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <!-- Flat No. -->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tilFlat"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:weightSum="2">
-
-                        <com.google.android.material.textfield.TextInputLayout
-                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:layout_marginRight="6dp"
-                            android:hint="Floor"
-                            app:boxCornerRadiusBottomEnd="14dp"
-                            app:boxCornerRadiusBottomStart="14dp"
-                            app:boxCornerRadiusTopEnd="14dp"
-                            app:boxCornerRadiusTopStart="14dp"
-                            app:boxStrokeColor="@color/brand_primary"
-                            app:boxBackgroundColor="#F0F9FF">
-                            <AutoCompleteTextView
-                                android:id="@+id/actvFloor"
-                                android:layout_width="match_parent"
-                                android:layout_height="52dp"
-                                android:inputType="none"
-                                android:paddingLeft="16dp"
-                                android:paddingRight="16dp"
-                                android:textColor="@color/text_h1"
-                                android:textSize="14sp" />
-                        </com.google.android.material.textfield.TextInputLayout>
-
-                        <com.google.android.material.textfield.TextInputLayout
-                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:layout_marginLeft="6dp"
-                            android:hint="Flat No."
-                            app:boxCornerRadiusBottomEnd="14dp"
-                            app:boxCornerRadiusBottomStart="14dp"
-                            app:boxCornerRadiusTopEnd="14dp"
-                            app:boxCornerRadiusTopStart="14dp"
-                            app:boxStrokeColor="@color/brand_primary"
-                            app:boxBackgroundColor="#F0F9FF">
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/etFlat"
-                                android:layout_width="match_parent"
-                                android:layout_height="52dp"
-                                android:inputType="textCapCharacters"
-                                android:textColor="@color/text_h1"
-                                android:textSize="14sp" />
-                        </com.google.android.material.textfield.TextInputLayout>
-                    </LinearLayout>
+                        android:layout_weight="1"
+                        android:layout_marginLeft="6dp"
+                        android:hint="Flat No."
+                        app:boxCornerRadiusBottomEnd="14dp"
+                        app:boxCornerRadiusBottomStart="14dp"
+                        app:boxCornerRadiusTopEnd="14dp"
+                        app:boxCornerRadiusTopStart="14dp"
+                        app:boxStrokeColor="@color/brand_primary"
+                        app:boxBackgroundColor="#F0F9FF">
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etFlat"
+                            android:layout_width="match_parent"
+                            android:layout_height="52dp"
+                            android:inputType="textCapCharacters"
+                            android:textColor="@color/text_h1"
+                            android:textSize="14sp" />
+                    </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
 
                 <!-- Manual address fields -->
@@ -285,12 +352,13 @@
                             android:textSize="14sp" />
                     </com.google.android.material.textfield.TextInputLayout>
 
+                    <!-- Manual Building, Floor, Flat Fields -->
                     <com.google.android.material.textfield.TextInputLayout
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="6dp"
-                        android:hint="Area / Locality"
+                        android:hint="Building / Wing"
                         app:boxCornerRadiusBottomEnd="14dp"
                         app:boxCornerRadiusBottomStart="14dp"
                         app:boxCornerRadiusTopEnd="14dp"
@@ -298,35 +366,65 @@
                         app:boxStrokeColor="@color/brand_primary"
                         app:boxBackgroundColor="#F0F9FF">
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/etManualArea"
+                            android:id="@+id/etManualBuilding"
                             android:layout_width="match_parent"
                             android:layout_height="52dp"
-                            android:inputType="text"
+                            android:inputType="textCapWords"
                             android:textColor="@color/text_h1"
                             android:textSize="14sp" />
                     </com.google.android.material.textfield.TextInputLayout>
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="4dp"
-                        android:hint="Pincode"
-                        app:boxCornerRadiusBottomEnd="14dp"
-                        app:boxCornerRadiusBottomStart="14dp"
-                        app:boxCornerRadiusTopEnd="14dp"
-                        app:boxCornerRadiusTopStart="14dp"
-                        app:boxStrokeColor="@color/brand_primary"
-                        app:boxBackgroundColor="#F0F9FF">
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/etManualPincode"
-                            android:layout_width="match_parent"
-                            android:layout_height="52dp"
-                            android:inputType="number"
-                            android:maxLength="6"
-                            android:textColor="@color/text_h1"
-                            android:textSize="14sp" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                        android:orientation="horizontal"
+                        android:weightSum="2"
+                        android:layout_marginBottom="6dp">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginRight="6dp"
+                            android:hint="Floor"
+                            app:boxCornerRadiusBottomEnd="14dp"
+                            app:boxCornerRadiusBottomStart="14dp"
+                            app:boxCornerRadiusTopEnd="14dp"
+                            app:boxCornerRadiusTopStart="14dp"
+                            app:boxStrokeColor="@color/brand_primary"
+                            app:boxBackgroundColor="#F0F9FF">
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etManualFloor"
+                                android:layout_width="match_parent"
+                                android:layout_height="52dp"
+                                android:inputType="number"
+                                android:textColor="@color/text_h1"
+                                android:textSize="14sp" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginLeft="6dp"
+                            android:hint="Flat No."
+                            app:boxCornerRadiusBottomEnd="14dp"
+                            app:boxCornerRadiusBottomStart="14dp"
+                            app:boxCornerRadiusTopEnd="14dp"
+                            app:boxCornerRadiusTopStart="14dp"
+                            app:boxStrokeColor="@color/brand_primary"
+                            app:boxBackgroundColor="#F0F9FF">
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etManualFlat"
+                                android:layout_width="match_parent"
+                                android:layout_height="52dp"
+                                android:inputType="textCapCharacters"
+                                android:textColor="@color/text_h1"
+                                android:textSize="14sp" />
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </LinearLayout>
 
                     <!-- Hidden city -->
                     <com.google.android.material.textfield.TextInputEditText
@@ -335,6 +433,7 @@
                         android:layout_height="0dp"
                         android:text="Pune"
                         android:visibility="gone" />
+
                 </LinearLayout>
 
                 <!-- Save Address button -->

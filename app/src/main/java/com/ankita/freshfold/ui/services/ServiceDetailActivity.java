@@ -210,6 +210,9 @@ public class ServiceDetailActivity extends AppCompatActivity {
         populateItemRows();
         updatePriceDisplay();
         updateCartBadge();
+        
+        // Fetch franchise dynamic prices
+        fetchDynamicPrices();
 
         // ── Gender toggle clicks ──
         if (btnMen != null && btnWomen != null) {
@@ -319,6 +322,112 @@ public class ServiceDetailActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    private void fetchDynamicPrices() {
+        com.ankita.freshfold.FranchiseManager cache = com.ankita.freshfold.FranchiseManager.getInstance();
+        if (cache.getCachedServices() != null) {
+            applyPricesFromCache(cache.getCachedServices());
+            return;
+        }
+
+        String phone = new com.ankita.freshfold.SessionManager(this).getUserPhone();
+        if (phone == null || phone.isEmpty()) return;
+
+        com.ankita.freshfold.data.repository.UserRepository userRepo = new com.ankita.freshfold.data.repository.UserRepository();
+        com.ankita.freshfold.data.repository.ServiceRepository serviceRepo = new com.ankita.freshfold.data.repository.ServiceRepository();
+
+        userRepo.getUser(phone).addOnSuccessListener(userDoc -> {
+            if (userDoc == null || !userDoc.exists()) return;
+            String franchiseId = userDoc.getString("franchiseId");
+            if (franchiseId == null || franchiseId.isEmpty()) return;
+
+            cache.setFranchiseId(franchiseId);
+
+            serviceRepo.getFranchiseServices(franchiseId).addOnSuccessListener(querySnap -> {
+                if (querySnap == null) return;
+                cache.setCachedServices(querySnap.getDocuments());
+                applyPricesFromCache(querySnap.getDocuments());
+            });
+        });
+    }
+
+    private void applyPricesFromCache(List<com.google.firebase.firestore.DocumentSnapshot> documents) {
+        // Map currentServiceName to Firestore document ID
+        String docId = currentServiceName;
+        if ("Wash & Fold".equalsIgnoreCase(docId) || "Laundry".equalsIgnoreCase(docId)) docId = "Wash & Fold";
+        else if ("Steam Iron".equalsIgnoreCase(docId) || "Ironing".equalsIgnoreCase(docId)) docId = "Steam iron";
+        else if ("Wash & Iron".equalsIgnoreCase(docId)) docId = "Wash & Iron";
+        else if ("Dry Cleaning".equalsIgnoreCase(docId)) docId = "Dry Clean";
+        else if ("Shoe Care".equalsIgnoreCase(docId)) docId = "Shoe Care";
+        else if ("Home Accessories".equalsIgnoreCase(docId)) docId = "Home Accessories";
+
+        final String finalDocId = docId;
+        for (com.google.firebase.firestore.DocumentSnapshot doc : documents) {
+            if (doc.getId().equalsIgnoreCase(finalDocId)) {
+                parseServicePricing(doc);
+                populateItemRows();
+                updatePriceDisplay();
+                break;
+            }
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    private void parseServicePricing(com.google.firebase.firestore.DocumentSnapshot doc) {
+        if (isApparelService) {
+            List<java.util.Map<String, Object>> menItems = (List<java.util.Map<String, Object>>) doc.get("menItems");
+            List<java.util.Map<String, Object>> womenItems = (List<java.util.Map<String, Object>>) doc.get("womenItems");
+            
+            if (menItems != null) {
+                for (java.util.Map<String, Object> item : menItems) {
+                    String name = (String) item.get("name");
+                    if (name != null) {
+                        int price = parsePrice(item);
+                        if (price > 0) menPriceMap.put(name, price);
+                    }
+                }
+            }
+            if (womenItems != null) {
+                for (java.util.Map<String, Object> item : womenItems) {
+                    String name = (String) item.get("name");
+                    if (name != null) {
+                        int price = parsePrice(item);
+                        if (price > 0) womenPriceMap.put(name, price);
+                    }
+                }
+            }
+        } else {
+            List<java.util.Map<String, Object>> universalItems = (List<java.util.Map<String, Object>>) doc.get("universalItems");
+            if (universalItems != null) {
+                for (java.util.Map<String, Object> item : universalItems) {
+                    String name = (String) item.get("name");
+                    if (name != null) {
+                        int price = parsePrice(item);
+                        if (price > 0) currentPriceMap.put(name, price);
+                    }
+                }
+            }
+        }
+    }
+
+    private int parsePrice(java.util.Map<String, Object> item) {
+        Object approved = item.get("approvedPrice");
+        Object base = item.get("priceBase");
+        
+        String priceStr = null;
+        if (approved != null && !approved.toString().trim().isEmpty()) {
+            priceStr = approved.toString().trim();
+        } else if (base != null && !base.toString().trim().isEmpty()) {
+            priceStr = base.toString().trim();
+        }
+        
+        if (priceStr != null) {
+            try {
+                return Integer.parseInt(priceStr);
+            } catch (Exception e) {}
+        }
+        return 0;
     }
 
     private java.util.Map<String, Integer> menPriceMap   = new java.util.HashMap<>();

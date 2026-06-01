@@ -379,7 +379,7 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/etPickupInstructions"
                             android:layout_width="match_parent"
-                            android:layout_height="130dp"
+                            android:layout_height="80dp"
                             android:fontFamily="sans-serif"
                             android:gravity="top|start"
                             android:hint="E.g. Don't ring the bell, call on arrival"
@@ -412,6 +412,27 @@
 
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
+
+            <!-- ── DISCLAIMER ── -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginBottom="24dp">
+                
+                <TextView
+                    android:id="@+id/tvDisclaimer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="View Important Disclaimer"
+                    android:textColor="@color/brand_primary"
+                    android:textSize="14sp"
+                    android:fontFamily="sans-serif-medium"
+                    android:padding="8dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="?attr/selectableItemBackground" />
+            </LinearLayout>
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

@@ -67,13 +67,25 @@ public class WalletFragment extends Fragment {
         });
 
         view.findViewById(R.id.btnAddMoneyCard).setOnClickListener(v -> {
-            android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(requireContext());
+            com.google.android.material.dialog.MaterialAlertDialogBuilder builder = new com.google.android.material.dialog.MaterialAlertDialogBuilder(requireContext());
             builder.setTitle("Top Up Wallet");
+            builder.setMessage("Enter the amount you want to add to your wallet.");
             
             final android.widget.EditText input = new android.widget.EditText(requireContext());
             input.setInputType(android.text.InputType.TYPE_CLASS_NUMBER);
-            input.setHint("Enter amount (e.g., 500)");
-            builder.setView(input);
+            input.setHint("Amount (₹)");
+            input.setBackgroundResource(android.R.drawable.edit_text);
+            
+            android.widget.FrameLayout container = new android.widget.FrameLayout(requireContext());
+            android.widget.FrameLayout.LayoutParams params = new android.widget.FrameLayout.LayoutParams(
+                android.view.ViewGroup.LayoutParams.MATCH_PARENT, 
+                android.view.ViewGroup.LayoutParams.WRAP_CONTENT
+            );
+            int margin = (int) (20 * getResources().getDisplayMetrics().density);
+            params.setMargins(margin, margin / 2, margin, margin / 2);
+            input.setLayoutParams(params);
+            container.addView(input);
+            builder.setView(container);
 
             builder.setPositiveButton("Add Money", (dialog, which) -> {
                 String amountStr = input.getText().toString();

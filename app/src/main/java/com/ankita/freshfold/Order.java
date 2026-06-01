@@ -10,6 +10,7 @@ public class Order implements Serializable {
     private long timestamp;
     private String status; // "Picking Pending", "Picked Up", "Out for Delivery", "Delivered"
     private String address;
+    private String documentPath;
 
     public Order(List<CartItem> items) {
         this.id = UUID.randomUUID().toString();
@@ -27,6 +28,8 @@ public class Order implements Serializable {
     public void setStatus(String status) { this.status = status; }
     public String getAddress() { return address; }
     public void setAddress(String address) { this.address = address; }
+    public String getDocumentPath() { return documentPath; }
+    public void setDocumentPath(String documentPath) { this.documentPath = documentPath; }
 
     public int getTotalPrice() {
         int total = 0;

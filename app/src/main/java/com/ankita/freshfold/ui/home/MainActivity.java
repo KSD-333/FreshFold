@@ -119,10 +119,19 @@ public class MainActivity extends AppCompatActivity implements CartPreviewFragme
     @Override
     protected void onResume() {
         super.onResume();
-        // Show Proceed to Checkout only during an active add-more session with items
+        updateCheckoutButtonVisibility();
+    }
+
+    private void updateCheckoutButtonVisibility() {
         if (btnProceedCheckout != null) {
             boolean show = CartManager.getInstance().isAddMoreSession()
                         && !CartManager.getInstance().isEmpty();
+            
+            // Hide on specific tabs
+            if ("WALLET".equals(currentTab) || "PROFILE".equals(currentTab)) {
+                show = false;
+            }
+            
             btnProceedCheckout.setVisibility(show ? View.VISIBLE : View.GONE);
         }
     }
@@ -216,6 +225,8 @@ public class MainActivity extends AppCompatActivity implements CartPreviewFragme
                 setActiveNavItem(ivProfile, tvProfile, activeColor);
                 break;
         }
+        
+        updateCheckoutButtonVisibility();
     }
 
     private void resetNavItem(ImageView icon, TextView text, int color) {

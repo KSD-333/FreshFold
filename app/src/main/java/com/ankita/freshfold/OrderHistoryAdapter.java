@@ -73,10 +73,31 @@ public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapte
                 .setTitle("Cancel Order")
                 .setMessage("Are you sure you want to cancel this order?")
                 .setPositiveButton("Yes, Cancel", (dialog, which) -> {
-                    CartManager.getInstance(v.getContext()).removeOrderById(order.getId());
-                    orders.remove(position);
-                    notifyItemRemoved(position);
-                    notifyItemRangeChanged(position, orders.size());
+                    String docPath = order.getDocumentPath();
+                    if (docPath != null && !docPath.isEmpty()) {
+                        com.google.firebase.firestore.FirebaseFirestore.getInstance()
+                            .document(docPath)
+                            .update("status", "Cancelled")
+                            .addOnSuccessListener(aVoid -> {
+                                SessionManager sm = new SessionManager(v.getContext());
+                                String phone = sm.getUserPhone();
+                                if (phone != null && !phone.isEmpty()) {
+                                    new com.ankita.freshfold.data.repository.UserRepository()
+                                        .handleOrderStatusWalletUpdate(phone, order.getTotalPrice(), "Cancelled");
+                                }
+                                order.setStatus("Cancelled");
+                                notifyItemChanged(position);
+                            })
+                            .addOnFailureListener(e -> {
+                                android.widget.Toast.makeText(v.getContext(), "Failed to cancel order.", android.widget.Toast.LENGTH_SHORT).show();
+                            });
+                    } else {
+                        // Fallback to local remove if no doc path
+                        CartManager.getInstance(v.getContext()).removeOrderById(order.getId());
+                        orders.remove(position);
+                        notifyItemRemoved(position);
+                        notifyItemRangeChanged(position, orders.size());
+                    }
                 })
                 .setNegativeButton("No, Keep", null)
                 .show();

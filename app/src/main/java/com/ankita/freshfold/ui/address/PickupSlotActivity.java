@@ -61,6 +61,9 @@ public class PickupSlotActivity extends AppCompatActivity {
         etPickupInstructions = findViewById(R.id.etPickupInstructions);
         btnSaveInstruction   = findViewById(R.id.btnSaveInstruction);
 
+        TextView tvDisclaimer = findViewById(R.id.tvDisclaimer);
+        tvDisclaimer.setOnClickListener(v -> showDisclaimerDialog());
+
         // Display current address from session
         displayCurrentAddress();
 
@@ -259,6 +262,14 @@ public class PickupSlotActivity extends AppCompatActivity {
                   btnContinue.setAlpha(1.0f);
               });
         });
+    }
+
+    private void showDisclaimerDialog() {
+        new com.google.android.material.dialog.MaterialAlertDialogBuilder(this)
+            .setTitle("Important Disclaimer")
+            .setMessage("All clothes are processed carefully according to standard care label instructions. However, we cannot be held responsible for color bleeding, shrinkage, or damage to weak/delicate fabrics unless explicitly stated in special instructions and agreed upon. Please review your pockets before handover.")
+            .setPositiveButton("I Understand", null)
+            .show();
     }
 
     private String calculateDeliveryDate(String pickupDate) {

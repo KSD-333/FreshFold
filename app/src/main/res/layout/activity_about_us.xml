@@ -288,7 +288,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:lineSpacingExtra="4dp"
-                android:text="Founded in 2026, FreshFold began with a simple vision: to eliminate the weekend laundry burden. We started as a small local service and have grown into a tech-enabled platform that connects you with professional fabric care experts."
+                android:text="FreshFold began with a simple vision: to eliminate the weekend laundry burden. We started as a small local service and have grown into a tech-enabled platform that connects you with professional fabric care experts. With our state-of-the-art facilities and dedicated team, we ensure your garments receive the highest quality care possible, returned to you fresh and perfectly folded."
                 android:textColor="@color/text_muted"
                 android:textSize="14sp" />
 

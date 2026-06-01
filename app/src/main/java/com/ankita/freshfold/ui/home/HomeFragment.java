@@ -30,6 +30,37 @@ import java.util.Calendar;
 import java.util.List;
 
 public class HomeFragment extends Fragment {
+    
+    private static final java.util.Map<String, Integer> SERVICE_MAP = new java.util.HashMap<>();
+    static {
+        SERVICE_MAP.put("wash&fold",           R.id.btnWashFold);
+        SERVICE_MAP.put("washfold",            R.id.btnWashFold);
+        SERVICE_MAP.put("wash_fold",           R.id.btnWashFold);
+        SERVICE_MAP.put("laundry",             R.id.btnWashFold);
+        SERVICE_MAP.put("steamiron",           R.id.btnSteamIron);
+        SERVICE_MAP.put("steam_iron",          R.id.btnSteamIron);
+        SERVICE_MAP.put("steam iron",          R.id.btnSteamIron);
+        SERVICE_MAP.put("iron",                R.id.btnSteamIron);
+        SERVICE_MAP.put("wash&iron",           R.id.btnWashIron);
+        SERVICE_MAP.put("washiron",            R.id.btnWashIron);
+        SERVICE_MAP.put("wash_iron",           R.id.btnWashIron);
+        SERVICE_MAP.put("wash iron",           R.id.btnWashIron);
+        SERVICE_MAP.put("drycleaning",         R.id.btnDryClean);
+        SERVICE_MAP.put("dry_cleaning",        R.id.btnDryClean);
+        SERVICE_MAP.put("dry cleaning",        R.id.btnDryClean);
+        SERVICE_MAP.put("dryclean",            R.id.btnDryClean);
+        SERVICE_MAP.put("dry_clean",           R.id.btnDryClean);
+        SERVICE_MAP.put("shoecare",            R.id.btnShoeCare);
+        SERVICE_MAP.put("shoe_care",           R.id.btnShoeCare);
+        SERVICE_MAP.put("shoe care",           R.id.btnShoeCare);
+        SERVICE_MAP.put("shoes",               R.id.btnShoeCare);
+        SERVICE_MAP.put("homeaccessories",     R.id.btnHomeAccessories);
+        SERVICE_MAP.put("home_accessories",    R.id.btnHomeAccessories);
+        SERVICE_MAP.put("home accessories",    R.id.btnHomeAccessories);
+        SERVICE_MAP.put("blanket",             R.id.btnHomeAccessories);
+        SERVICE_MAP.put("accessories",         R.id.btnHomeAccessories);
+    }
+
     private SessionManager sessionManager;
     private HomeViewModel viewModel;
 
@@ -72,6 +103,7 @@ public class HomeFragment extends Fragment {
         
         setupInteractions(view);
         updateServiceLockState(view, sessionManager.isApproved());
+        loadFranchiseServiceStatus(view);
         setupBannerCarousel(view);
 
         // Scroll to Our Services section if coming from Add More Services
@@ -115,11 +147,66 @@ public class HomeFragment extends Fragment {
             View v = view.findViewById(id);
             if (v != null) {
                 if (isApproved) {
-                    v.setAlpha(1.0f);
+                    if (!"inactive".equals(v.getTag())) {
+                        v.setAlpha(1.0f);
+                    }
                     v.setEnabled(true);
                 } else {
                     v.setAlpha(0.5f);
                     v.setEnabled(false);
+                }
+            }
+        }
+    }
+
+    private void loadFranchiseServiceStatus(View view) {
+        if (getContext() == null) return;
+        
+        com.ankita.freshfold.FranchiseManager cache = com.ankita.freshfold.FranchiseManager.getInstance();
+        if (cache.getCachedServices() != null) {
+            applyServicesToUI(view, cache.getCachedServices());
+            return;
+        }
+
+        String phone = sessionManager.getUserPhone();
+        if (phone == null || phone.isEmpty()) return;
+
+        com.ankita.freshfold.data.repository.UserRepository userRepo = new com.ankita.freshfold.data.repository.UserRepository();
+        com.ankita.freshfold.data.repository.ServiceRepository serviceRepo = new com.ankita.freshfold.data.repository.ServiceRepository();
+
+        userRepo.getUser(phone).addOnSuccessListener(userDoc -> {
+            if (!isAdded() || userDoc == null || !userDoc.exists()) return;
+            String franchiseId = userDoc.getString("franchiseId");
+            if (franchiseId == null || franchiseId.isEmpty()) return;
+            
+            cache.setFranchiseId(franchiseId);
+            
+            serviceRepo.getFranchiseServices(franchiseId).addOnSuccessListener(querySnapshot -> {
+                if (!isAdded() || querySnapshot == null) return;
+                cache.setCachedServices(querySnapshot.getDocuments());
+                applyServicesToUI(view, querySnapshot.getDocuments());
+            });
+        });
+    }
+
+    private void applyServicesToUI(View view, java.util.List<com.google.firebase.firestore.DocumentSnapshot> documents) {
+        for (com.google.firebase.firestore.DocumentSnapshot doc : documents) {
+            String name = doc.getString("name");
+            if (name == null || name.isEmpty()) name = doc.getId();
+            Boolean active = doc.getBoolean("active");
+            boolean isActive = active == null || active;
+            
+            String key = name.toLowerCase().trim()
+                    .replace("&amp;", "&").replace(" & ", "&").replace("&", "");
+            Integer viewId = SERVICE_MAP.get(key);
+            if (viewId == null) viewId = SERVICE_MAP.get(name.toLowerCase().trim());
+            if (viewId == null) viewId = SERVICE_MAP.get(doc.getId().toLowerCase().trim());
+            
+            if (viewId != null && !isActive) {
+                View v = view.findViewById(viewId);
+                if (v != null) {
+                    v.setAlpha(0.5f);
+                    v.setTag("inactive");
                 }
             }
         }
@@ -172,9 +259,13 @@ public class HomeFragment extends Fragment {
     @SuppressLint("ClickableViewAccessibility")
     private void applyScaleInteraction(View v) {
         v.setOnTouchListener((view, event) -> {
-            if (!view.isEnabled()) {
-                if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    android.widget.Toast.makeText(requireContext(), "You can book services once the franchise approves your request.", android.widget.Toast.LENGTH_SHORT).show();
+            if (!view.isEnabled() || "inactive".equals(view.getTag())) {
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    if ("inactive".equals(view.getTag())) {
+                        android.widget.Toast.makeText(requireContext(), "This service is currently not active.", android.widget.Toast.LENGTH_SHORT).show();
+                    } else {
+                        android.widget.Toast.makeText(requireContext(), "You can book services once the franchise approves your request.", android.widget.Toast.LENGTH_SHORT).show();
+                    }
                 }
                 return true;
             }

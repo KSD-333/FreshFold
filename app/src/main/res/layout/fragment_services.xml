@@ -132,24 +132,6 @@
                             app:tint="@color/text_muted" />
                     </LinearLayout>
 
-                    <!-- Unavailable Overlay -->
-                    <LinearLayout
-                        android:id="@+id/overlayLaundry"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="#CCFFFFFF"
-                        android:gravity="center"
-                        android:orientation="horizontal"
-                        android:visibility="gone">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:drawablePadding="6dp"
-                            android:fontFamily="sans-serif-medium"
-                            android:text="⛔  Service Unavailable"
-                            android:textColor="#CC0000"
-                            android:textSize="14sp" />
-                    </LinearLayout>
                 </FrameLayout>
             </com.google.android.material.card.MaterialCardView>
 
@@ -221,24 +203,6 @@
                             app:tint="@color/text_muted" />
                     </LinearLayout>
 
-                    <!-- Unavailable Overlay -->
-                    <LinearLayout
-                        android:id="@+id/overlayIron"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="#CCFFFFFF"
-                        android:gravity="center"
-                        android:orientation="horizontal"
-                        android:visibility="gone">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:drawablePadding="6dp"
-                            android:fontFamily="sans-serif-medium"
-                            android:text="⛔  Service Unavailable"
-                            android:textColor="#CC0000"
-                            android:textSize="14sp" />
-                    </LinearLayout>
                 </FrameLayout>
             </com.google.android.material.card.MaterialCardView>
 
@@ -310,24 +274,6 @@
                             app:tint="@color/text_muted" />
                     </LinearLayout>
 
-                    <!-- Unavailable Overlay -->
-                    <LinearLayout
-                        android:id="@+id/overlayWashIron"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="#CCFFFFFF"
-                        android:gravity="center"
-                        android:orientation="horizontal"
-                        android:visibility="gone">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:drawablePadding="6dp"
-                            android:fontFamily="sans-serif-medium"
-                            android:text="⛔  Service Unavailable"
-                            android:textColor="#CC0000"
-                            android:textSize="14sp" />
-                    </LinearLayout>
                 </FrameLayout>
             </com.google.android.material.card.MaterialCardView>
 
@@ -399,24 +345,6 @@
                             app:tint="@color/text_muted" />
                     </LinearLayout>
 
-                    <!-- Unavailable Overlay -->
-                    <LinearLayout
-                        android:id="@+id/overlayDryClean"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="#CCFFFFFF"
-                        android:gravity="center"
-                        android:orientation="horizontal"
-                        android:visibility="gone">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:drawablePadding="6dp"
-                            android:fontFamily="sans-serif-medium"
-                            android:text="⛔  Service Unavailable"
-                            android:textColor="#CC0000"
-                            android:textSize="14sp" />
-                    </LinearLayout>
                 </FrameLayout>
             </com.google.android.material.card.MaterialCardView>
 
@@ -488,24 +416,6 @@
                             app:tint="@color/text_muted" />
                     </LinearLayout>
 
-                    <!-- Unavailable Overlay -->
-                    <LinearLayout
-                        android:id="@+id/overlayShoe"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="#CCFFFFFF"
-                        android:gravity="center"
-                        android:orientation="horizontal"
-                        android:visibility="gone">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:drawablePadding="6dp"
-                            android:fontFamily="sans-serif-medium"
-                            android:text="⛔  Service Unavailable"
-                            android:textColor="#CC0000"
-                            android:textSize="14sp" />
-                    </LinearLayout>
                 </FrameLayout>
             </com.google.android.material.card.MaterialCardView>
 
@@ -577,24 +487,6 @@
                             app:tint="@color/text_muted" />
                     </LinearLayout>
 
-                    <!-- Unavailable Overlay -->
-                    <LinearLayout
-                        android:id="@+id/overlayBlanket"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="#CCFFFFFF"
-                        android:gravity="center"
-                        android:orientation="horizontal"
-                        android:visibility="gone">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:drawablePadding="6dp"
-                            android:fontFamily="sans-serif-medium"
-                            android:text="⛔  Service Unavailable"
-                            android:textColor="#CC0000"
-                            android:textSize="14sp" />
-                    </LinearLayout>
                 </FrameLayout>
             </com.google.android.material.card.MaterialCardView>
 

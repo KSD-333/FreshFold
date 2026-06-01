@@ -22,43 +22,43 @@ import java.util.Map;
 
 public class ServicesFragment extends Fragment {
 
-    // Maps a normalised service key → card view ID and overlay view ID
-    private static final Map<String, int[]> SERVICE_MAP = new HashMap<>();
+    // Maps a normalised service key → card view ID
+    private static final Map<String, Integer> SERVICE_MAP = new HashMap<>();
 
     static {
         // Key format: lowercase, no spaces/special chars
-        // Value: [cardViewId, overlayViewId]
-        SERVICE_MAP.put("wash&fold",           new int[]{R.id.cardLaundry,   R.id.overlayLaundry});
-        SERVICE_MAP.put("washfold",            new int[]{R.id.cardLaundry,   R.id.overlayLaundry});
-        SERVICE_MAP.put("wash_fold",           new int[]{R.id.cardLaundry,   R.id.overlayLaundry});
-        SERVICE_MAP.put("laundry",             new int[]{R.id.cardLaundry,   R.id.overlayLaundry});
+        // Value: cardViewId
+        SERVICE_MAP.put("wash&fold",           R.id.cardLaundry);
+        SERVICE_MAP.put("washfold",            R.id.cardLaundry);
+        SERVICE_MAP.put("wash_fold",           R.id.cardLaundry);
+        SERVICE_MAP.put("laundry",             R.id.cardLaundry);
 
-        SERVICE_MAP.put("steamiron",           new int[]{R.id.cardIron,      R.id.overlayIron});
-        SERVICE_MAP.put("steam_iron",          new int[]{R.id.cardIron,      R.id.overlayIron});
-        SERVICE_MAP.put("steam iron",          new int[]{R.id.cardIron,      R.id.overlayIron});
-        SERVICE_MAP.put("iron",                new int[]{R.id.cardIron,      R.id.overlayIron});
+        SERVICE_MAP.put("steamiron",           R.id.cardIron);
+        SERVICE_MAP.put("steam_iron",          R.id.cardIron);
+        SERVICE_MAP.put("steam iron",          R.id.cardIron);
+        SERVICE_MAP.put("iron",                R.id.cardIron);
 
-        SERVICE_MAP.put("wash&iron",           new int[]{R.id.cardWashIron,  R.id.overlayWashIron});
-        SERVICE_MAP.put("washiron",            new int[]{R.id.cardWashIron,  R.id.overlayWashIron});
-        SERVICE_MAP.put("wash_iron",           new int[]{R.id.cardWashIron,  R.id.overlayWashIron});
-        SERVICE_MAP.put("wash iron",           new int[]{R.id.cardWashIron,  R.id.overlayWashIron});
+        SERVICE_MAP.put("wash&iron",           R.id.cardWashIron);
+        SERVICE_MAP.put("washiron",            R.id.cardWashIron);
+        SERVICE_MAP.put("wash_iron",           R.id.cardWashIron);
+        SERVICE_MAP.put("wash iron",           R.id.cardWashIron);
 
-        SERVICE_MAP.put("drycleaning",         new int[]{R.id.cardDryClean,  R.id.overlayDryClean});
-        SERVICE_MAP.put("dry_cleaning",        new int[]{R.id.cardDryClean,  R.id.overlayDryClean});
-        SERVICE_MAP.put("dry cleaning",        new int[]{R.id.cardDryClean,  R.id.overlayDryClean});
-        SERVICE_MAP.put("dryclean",            new int[]{R.id.cardDryClean,  R.id.overlayDryClean});
-        SERVICE_MAP.put("dry_clean",           new int[]{R.id.cardDryClean,  R.id.overlayDryClean});
+        SERVICE_MAP.put("drycleaning",         R.id.cardDryClean);
+        SERVICE_MAP.put("dry_cleaning",        R.id.cardDryClean);
+        SERVICE_MAP.put("dry cleaning",        R.id.cardDryClean);
+        SERVICE_MAP.put("dryclean",            R.id.cardDryClean);
+        SERVICE_MAP.put("dry_clean",           R.id.cardDryClean);
 
-        SERVICE_MAP.put("shoecare",            new int[]{R.id.cardShoe,      R.id.overlayShoe});
-        SERVICE_MAP.put("shoe_care",           new int[]{R.id.cardShoe,      R.id.overlayShoe});
-        SERVICE_MAP.put("shoe care",           new int[]{R.id.cardShoe,      R.id.overlayShoe});
-        SERVICE_MAP.put("shoes",               new int[]{R.id.cardShoe,      R.id.overlayShoe});
+        SERVICE_MAP.put("shoecare",            R.id.cardShoe);
+        SERVICE_MAP.put("shoe_care",           R.id.cardShoe);
+        SERVICE_MAP.put("shoe care",           R.id.cardShoe);
+        SERVICE_MAP.put("shoes",               R.id.cardShoe);
 
-        SERVICE_MAP.put("homeaccessories",     new int[]{R.id.cardBlanket,   R.id.overlayBlanket});
-        SERVICE_MAP.put("home_accessories",    new int[]{R.id.cardBlanket,   R.id.overlayBlanket});
-        SERVICE_MAP.put("home accessories",    new int[]{R.id.cardBlanket,   R.id.overlayBlanket});
-        SERVICE_MAP.put("blanket",             new int[]{R.id.cardBlanket,   R.id.overlayBlanket});
-        SERVICE_MAP.put("accessories",         new int[]{R.id.cardBlanket,   R.id.overlayBlanket});
+        SERVICE_MAP.put("homeaccessories",     R.id.cardBlanket);
+        SERVICE_MAP.put("home_accessories",    R.id.cardBlanket);
+        SERVICE_MAP.put("home accessories",    R.id.cardBlanket);
+        SERVICE_MAP.put("blanket",             R.id.cardBlanket);
+        SERVICE_MAP.put("accessories",         R.id.cardBlanket);
     }
 
     @Nullable
@@ -112,6 +112,12 @@ public class ServicesFragment extends Fragment {
     // ──────────────────────────────────────────────────────────
     private void loadFranchiseServiceStatus(View view) {
         if (getContext() == null) return;
+        
+        com.ankita.freshfold.FranchiseManager cache = com.ankita.freshfold.FranchiseManager.getInstance();
+        if (cache.getCachedServices() != null) {
+            applyServicesToUI(view, cache.getCachedServices());
+            return;
+        }
 
         SessionManager session = new SessionManager(requireContext());
         String phone = session.getUserPhone();
@@ -126,37 +132,15 @@ public class ServicesFragment extends Fragment {
 
             String franchiseId = userDoc.getString("franchiseId");
             if (franchiseId == null || franchiseId.isEmpty()) return; // no franchise assigned
+            
+            cache.setFranchiseId(franchiseId);
 
             // Step 2: fetch services from that franchise
             serviceRepo.getFranchiseServices(franchiseId).addOnSuccessListener(querySnapshot -> {
                 if (!isAdded() || querySnapshot == null) return;
-
-                for (DocumentSnapshot doc : querySnapshot.getDocuments()) {
-                    // Service name: try "name" field first, then document ID
-                    String name = doc.getString("name");
-                    if (name == null || name.isEmpty()) name = doc.getId();
-
-                    Boolean active = doc.getBoolean("active");
-                    boolean isActive = active == null || active; // default = active
-
-                    // Normalise the name to match SERVICE_MAP keys
-                    String key = name.toLowerCase().trim()
-                            .replace("&amp;", "&")
-                            .replace(" & ", "&")
-                            .replace("&", ""); // "wash & fold" → "washfold"
-
-                    // Try exact key first, then with spaces removed
-                    int[] ids = SERVICE_MAP.get(key);
-                    if (ids == null) ids = SERVICE_MAP.get(name.toLowerCase().trim());
-                    if (ids == null) {
-                        // Try matching the doc ID
-                        ids = SERVICE_MAP.get(doc.getId().toLowerCase().trim());
-                    }
-
-                    if (ids != null) {
-                        applyServiceStatus(view, ids[0], ids[1], isActive);
-                    }
-                }
+                
+                cache.setCachedServices(querySnapshot.getDocuments());
+                applyServicesToUI(view, querySnapshot.getDocuments());
             }).addOnFailureListener(e -> {
                 // Silently fail — cards remain clickable
             });
@@ -165,27 +149,49 @@ public class ServicesFragment extends Fragment {
         });
     }
 
-    /**
-     * If isActive → card is clickable, overlay hidden.
-     * If !isActive → overlay shown, card click blocked with a toast.
-     */
-    private void applyServiceStatus(View root, int cardId, int overlayId, boolean isActive) {
+    private void applyServicesToUI(View view, java.util.List<DocumentSnapshot> documents) {
+        for (DocumentSnapshot doc : documents) {
+            // Service name: try "name" field first, then document ID
+            String name = doc.getString("name");
+            if (name == null || name.isEmpty()) name = doc.getId();
+
+            Boolean active = doc.getBoolean("active");
+            boolean isActive = active == null || active; // default = active
+
+            // Normalise the name to match SERVICE_MAP keys
+            String key = name.toLowerCase().trim()
+                    .replace("&amp;", "&")
+                    .replace(" & ", "&")
+                    .replace("&", ""); // "wash & fold" → "washfold"
+
+            // Try exact key first, then with spaces removed
+            Integer id = SERVICE_MAP.get(key);
+            if (id == null) id = SERVICE_MAP.get(name.toLowerCase().trim());
+            if (id == null) {
+                // Try matching the doc ID
+                id = SERVICE_MAP.get(doc.getId().toLowerCase().trim());
+            }
+
+            if (id != null) {
+                applyServiceStatus(view, id, isActive);
+            }
+        }
+    }
+
+    private void applyServiceStatus(View root, int cardId, boolean isActive) {
         if (!isAdded()) return;
         View card    = root.findViewById(cardId);
-        View overlay = root.findViewById(overlayId);
-        if (card == null || overlay == null) return;
+        if (card == null) return;
 
         if (isActive) {
-            overlay.setVisibility(View.GONE);
             card.setAlpha(1f);
             // Keep the original click listener set in setupCardClicks
         } else {
-            overlay.setVisibility(View.VISIBLE);
-            card.setAlpha(0.85f);
+            card.setAlpha(0.5f);
             // Override click to show toast instead of opening the service
             card.setOnClickListener(v ->
                 Toast.makeText(requireContext(),
-                    "This service is currently unavailable in your area.",
+                    "This service is currently not active.",
                     Toast.LENGTH_SHORT).show()
             );
         }

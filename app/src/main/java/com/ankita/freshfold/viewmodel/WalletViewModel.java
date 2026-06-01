@@ -105,12 +105,13 @@ public class WalletViewModel extends ViewModel {
             txn.put("timestamp", System.currentTimeMillis());
             txn.put("userPhone", phone);
 
-            userRepository.saveTransaction(phone, null, txn);
-
-            // If real-time listener is not active, manually refresh balance
-            if (balanceListener == null) {
-                fetchBalance(phone);
-            }
+            userRepository.saveTransaction(phone, null, txn).addOnSuccessListener(aVoid1 -> {
+                // If real-time listener is not active, manually refresh balance
+                if (balanceListener == null) {
+                    fetchBalance(phone);
+                }
+                fetchTransactions(phone);
+            });
         });
     }
 
