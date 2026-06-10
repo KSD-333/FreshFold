@@ -115,6 +115,10 @@
             android:exported="false" />
 
         <activity
+            android:name=".ui.wallet.AllTransactionsActivity"
+            android:exported="false" />
+
+        <activity
             android:name=".OrderDetailActivity"
             android:exported="false" />
 

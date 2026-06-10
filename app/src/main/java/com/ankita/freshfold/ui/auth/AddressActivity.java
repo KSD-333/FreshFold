@@ -549,6 +549,9 @@ public class AddressActivity extends AppCompatActivity {
             String city = selectedFranchise != null ? (String) selectedFranchise.get("address") : actvCity.getText().toString().trim();
             String areaId = selectedArea != null ? (String) selectedArea.get("id") : actvArea.getText().toString().trim();
             String franchiseId = selectedFranchise != null ? (String) selectedFranchise.get("id") : "";
+            if (franchiseId.isEmpty() && selectedSociety != null && selectedSociety.get("franchiseId") != null) {
+                franchiseId = (String) selectedSociety.get("franchiseId");
+            }
 
             if (city.isEmpty()) { Toast.makeText(this, "Please select a City", Toast.LENGTH_SHORT).show(); return; }
             if (areaId.isEmpty()) { Toast.makeText(this, "Please select an Area", Toast.LENGTH_SHORT).show(); return; }
@@ -558,11 +561,11 @@ public class AddressActivity extends AppCompatActivity {
                 city,
                 areaId,
                 (String) selectedSociety.get("id"),
-                (String) selectedSociety.get("societyName"),
+                getStringField(selectedSociety, "societyName", "name", "society", "id"),
                 (String) selectedBuilding.get("id"),
-                (String) selectedBuilding.get("buildingName"),
+                getStringField(selectedBuilding, "buildingName", "name", "wing", "building", "id"),
                 (String) selectedFloor.get("id"),
-                (String) selectedFloor.get("floorName"),
+                getStringField(selectedFloor, "floorName", "name", "floor", "id"),
                 flat,
                 franchiseId
             );

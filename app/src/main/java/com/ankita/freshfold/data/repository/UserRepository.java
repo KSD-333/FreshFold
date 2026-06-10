@@ -42,7 +42,7 @@ public class UserRepository {
     
     // Save address as a new document in the "address" sub-collection
     // type = "registration" or "saved"
-    public Task<Void> saveAddress(String phone, String address, String type) {
+    public Task<Void> saveAddress(String phone, String address, String type, String franchiseId) {
         com.google.android.gms.tasks.TaskCompletionSource<Void> tcs = new com.google.android.gms.tasks.TaskCompletionSource<>();
         
         db.collection("freshfold").document("app_data")
@@ -55,10 +55,15 @@ public class UserRepository {
                 if (!querySnap.isEmpty()) {
                     // Address already exists, just update timestamp
                     String docId = querySnap.getDocuments().get(0).getId();
+                    Map<String, Object> updates = new java.util.HashMap<>();
+                    updates.put("timestamp", com.google.firebase.Timestamp.now());
+                    if (franchiseId != null && !franchiseId.isEmpty()) {
+                        updates.put("franchiseId", franchiseId);
+                    }
                     db.collection("freshfold").document("app_data")
                         .collection("users").document(phone)
                         .collection("address").document(docId)
-                        .update("timestamp", com.google.firebase.Timestamp.now())
+                        .update(updates)
                         .addOnSuccessListener(aVoid -> tcs.setResult(null))
                         .addOnFailureListener(e -> tcs.setException(e));
                 } else {
@@ -66,6 +71,9 @@ public class UserRepository {
                     Map<String, Object> data = new java.util.HashMap<>();
                     data.put("address", address);
                     data.put("type", type);
+                    if (franchiseId != null && !franchiseId.isEmpty()) {
+                        data.put("franchiseId", franchiseId);
+                    }
                     data.put("timestamp", com.google.firebase.Timestamp.now());
                     db.collection("freshfold").document("app_data")
                         .collection("users").document(phone)
@@ -87,6 +95,32 @@ public class UserRepository {
                 .collection("address")
                 .orderBy("timestamp", com.google.firebase.firestore.Query.Direction.DESCENDING)
                 .get();
+    }
+
+    public Task<Void> deleteAddress(String phone, String address) {
+        com.google.android.gms.tasks.TaskCompletionSource<Void> tcs = new com.google.android.gms.tasks.TaskCompletionSource<>();
+        
+        db.collection("freshfold").document("app_data")
+            .collection("users").document(phone)
+            .collection("address")
+            .whereEqualTo("address", address)
+            .get()
+            .addOnSuccessListener(querySnap -> {
+                if (!querySnap.isEmpty()) {
+                    com.google.firebase.firestore.WriteBatch batch = db.batch();
+                    for (DocumentSnapshot doc : querySnap.getDocuments()) {
+                        batch.delete(doc.getReference());
+                    }
+                    batch.commit()
+                        .addOnSuccessListener(aVoid -> tcs.setResult(null))
+                        .addOnFailureListener(e -> tcs.setException(e));
+                } else {
+                    tcs.setResult(null);
+                }
+            })
+            .addOnFailureListener(e -> tcs.setException(e));
+            
+        return tcs.getTask();
     }
 
     public Task<Void> updateUser(String phone, Map<String, Object> updates) {

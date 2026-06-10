@@ -240,7 +240,7 @@ public class RegistrationViewModel extends ViewModel {
 
         userRepository.saveUser(phone, user).addOnSuccessListener(aVoid -> {
             // Save address also in sub-collection "address" with type "registration"
-            userRepository.saveAddress(phone, address, "registration");
+            userRepository.saveAddress(phone, address, "registration", franchiseId);
             if (giveReward && addressKey != null) {
                 Map<String, Object> reward = new HashMap<>();
                 reward.put("addressKey", addressKey);

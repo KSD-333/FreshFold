@@ -150,8 +150,10 @@ public class PickupSlotActivity extends AppCompatActivity {
               .get()
               .addOnSuccessListener(querySnap -> {
                   final String addressDocId;
+                  final String[] addressFranchiseId = {""};
                   if (!querySnap.isEmpty()) {
                       addressDocId = querySnap.getDocuments().get(0).getId();
+                      addressFranchiseId[0] = querySnap.getDocuments().get(0).getString("franchiseId");
                   } else {
                       // Fallback create if not found
                       com.google.firebase.firestore.DocumentReference newRef = db.collection("freshfold").document("app_data")
@@ -171,13 +173,13 @@ public class PickupSlotActivity extends AppCompatActivity {
                       .get().addOnSuccessListener(doc -> {
                     double actual = 0.0;
                     double reserved = 0.0;
-                    String franchiseId = "";
+                    String rootFranchiseId = "";
                     if (doc.exists()) {
                         actual = doc.contains("walletBalance") && doc.getDouble("walletBalance") != null ? doc.getDouble("walletBalance") : 0.0;
                         reserved = doc.contains("reservedBalance") && doc.getDouble("reservedBalance") != null ? doc.getDouble("reservedBalance") : 0.0;
-                        if (doc.getString("franchiseId") != null) franchiseId = doc.getString("franchiseId");
+                        if (doc.getString("franchiseId") != null) rootFranchiseId = doc.getString("franchiseId");
                     }
-                    final String finalFranchiseId = franchiseId;
+                    final String finalFranchiseId = (addressFranchiseId[0] != null && !addressFranchiseId[0].isEmpty()) ? addressFranchiseId[0] : rootFranchiseId;
                     
                     double available = actual - reserved;
                     

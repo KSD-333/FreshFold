@@ -206,6 +206,17 @@
                     android:textSize="17sp" />
 
                 <TextView
+                    android:id="@+id/btnFilter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="Filter ▼"
+                    android:textColor="#6F7492"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/btnSeeAllTransactions"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-medium"

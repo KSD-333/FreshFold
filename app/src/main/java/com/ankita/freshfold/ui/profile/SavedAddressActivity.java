@@ -188,17 +188,26 @@ public class SavedAddressActivity extends AppCompatActivity {
                     cardCurrentAddress.setVisibility(View.GONE);
                 }
 
-                List<String> list = (List<String>) doc.get("address_list");
-                previousAddresses.clear();
-                if (list != null) {
-                    previousAddresses.addAll(list);
-                }
-                if (!previousAddresses.isEmpty()) {
-                    layoutPreviousAddresses.setVisibility(View.VISIBLE);
-                } else {
-                    layoutPreviousAddresses.setVisibility(View.GONE);
-                }
-                addressAdapter.notifyDataSetChanged();
+                userRepository.getAddresses(phone).addOnSuccessListener(querySnap -> {
+                    previousAddresses.clear();
+                    for (DocumentSnapshot addressDoc : querySnap.getDocuments()) {
+                        String addrStr = addressDoc.getString("address");
+                        if (addrStr != null && !addrStr.isEmpty()) {
+                            if (address != null && address.equals(addrStr)) {
+                                continue;
+                            }
+                            if (!previousAddresses.contains(addrStr)) {
+                                previousAddresses.add(addrStr);
+                            }
+                        }
+                    }
+                    if (!previousAddresses.isEmpty()) {
+                        layoutPreviousAddresses.setVisibility(View.VISIBLE);
+                    } else {
+                        layoutPreviousAddresses.setVisibility(View.GONE);
+                    }
+                    addressAdapter.notifyDataSetChanged();
+                });
             }
         });
     }
@@ -207,7 +216,7 @@ public class SavedAddressActivity extends AppCompatActivity {
         if (address == null || address.isEmpty()) return;
         String current = tvCurrentAddress.getText().toString().trim();
         if (address.equals(current)) return;
-        saveToFirestore(address);
+        saveToFirestore(address, null);
     }
     
     private void deletePreviousAddress(String address, int position) {
@@ -223,13 +232,15 @@ public class SavedAddressActivity extends AppCompatActivity {
             layoutPreviousAddresses.setVisibility(View.GONE);
         }
 
-        Map<String, Object> listUpdate = new HashMap<>();
-        listUpdate.put("address_list", previousAddresses);
-        userRepository.updateUser(phone, listUpdate).addOnCompleteListener(task -> {
+        userRepository.deleteAddress(phone, address).addOnCompleteListener(task -> {
             progressDialog.dismiss();
             progressDialog.setMessage("Saving address..."); 
             if (task.isSuccessful()) {
                 Toast.makeText(SavedAddressActivity.this, "Address deleted", Toast.LENGTH_SHORT).show();
+                // Optionally update address_list for backward compatibility
+                Map<String, Object> listUpdate = new HashMap<>();
+                listUpdate.put("address_list", previousAddresses);
+                userRepository.updateUser(phone, listUpdate);
             } else {
                 Toast.makeText(SavedAddressActivity.this, "Failed to delete address", Toast.LENGTH_SHORT).show();
                 previousAddresses.add(position, address);
@@ -614,6 +625,7 @@ public class SavedAddressActivity extends AppCompatActivity {
 
     private void validateAndSave() {
         String fullAddress;
+        String franchiseIdToSave = "";
 
         if (selectedSociety != null && selectedBuilding != null && selectedFloor != null) {
             String flat = etFlat.getText().toString().trim();
@@ -630,6 +642,10 @@ public class SavedAddressActivity extends AppCompatActivity {
             String sName = getStringField(selectedSociety, "societyName", "name", "society", "id");
             
             fullAddress = buildAddress(flat, fName, bName, sName, area, city, "");
+            franchiseIdToSave = selectedFranchise != null ? (String) selectedFranchise.get("id") : "";
+            if (franchiseIdToSave.isEmpty() && selectedSociety != null && selectedSociety.get("franchiseId") != null) {
+                franchiseIdToSave = (String) selectedSociety.get("franchiseId");
+            }
         } else if (layoutManualAddress.getVisibility() == View.VISIBLE) {
             String s = etManualSociety.getText().toString().trim();
             String mb = etManualBuilding.getText().toString().trim();
@@ -647,12 +663,13 @@ public class SavedAddressActivity extends AppCompatActivity {
             if (a.isEmpty()) { Toast.makeText(this, "Please select an Area first", Toast.LENGTH_SHORT).show(); return; }
             
             fullAddress = buildAddress(mFlat, mf, mb, s, a, city, p);
+            franchiseIdToSave = selectedFranchise != null ? (String) selectedFranchise.get("id") : "";
         } else {
             Toast.makeText(this, "Please select all address fields completely", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        saveToFirestore(fullAddress);
+        saveToFirestore(fullAddress, franchiseIdToSave);
     }
     
     private String buildAddress(String flat, String floorName, String buildingName, String societyName, String area, String city, String pincode) {
@@ -678,7 +695,7 @@ public class SavedAddressActivity extends AppCompatActivity {
         return sb.toString();
     }
 
-    private void saveToFirestore(String fullAddress) {
+    private void saveToFirestore(String fullAddress, String franchiseId) {
         String phone = session.getUserPhone();
         if (phone == null || phone.isEmpty()) {
             Toast.makeText(this, "Session expired. Please login again.", Toast.LENGTH_SHORT).show();
@@ -691,31 +708,10 @@ public class SavedAddressActivity extends AppCompatActivity {
 
         userRepository.updateUser(phone, updates)
                 .addOnSuccessListener(aVoid -> {
-                    userRepository.saveAddress(phone, fullAddress, "saved");
+                    userRepository.saveAddress(phone, fullAddress, "saved", franchiseId).addOnSuccessListener(unused -> {
+                        loadCurrentAddress();
+                    });
                     progressDialog.dismiss();
-
-                    String oldAddr = tvCurrentAddress.getText().toString().trim();
-                    if (!oldAddr.isEmpty() && !oldAddr.equals(fullAddress)) {
-                        if (!previousAddresses.contains(oldAddr)) {
-                            previousAddresses.add(0, oldAddr);
-                        }
-                        while (previousAddresses.contains(fullAddress)) {
-                            previousAddresses.remove(fullAddress);
-                        }
-                        java.util.List<String> distinct = new java.util.ArrayList<>();
-                        for (String s : previousAddresses) {
-                            if (!distinct.contains(s)) distinct.add(s);
-                        }
-                        previousAddresses.clear();
-                        previousAddresses.addAll(distinct);
-
-                        Map<String, Object> listUpdate = new HashMap<>();
-                        listUpdate.put("address_list", previousAddresses);
-                        userRepository.updateUser(phone, listUpdate);
-
-                        layoutPreviousAddresses.setVisibility(View.VISIBLE);
-                        addressAdapter.notifyDataSetChanged();
-                    }
 
                     session.saveUserProfile(session.getUserName(), session.getUserEmail(), fullAddress);
                     tvCurrentAddress.setText(fullAddress);

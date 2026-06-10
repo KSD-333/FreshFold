@@ -27,6 +27,8 @@ public class WalletFragment extends Fragment {
     private TextView tvBalance;
     private TextView tvAvailableBalance;
     private RecyclerView rvTransactions;
+    private List<Transaction> allTransactions = new ArrayList<>();
+    private String currentFilter = "All";
 
     @Nullable
     @Override
@@ -65,6 +67,44 @@ public class WalletFragment extends Fragment {
                 ((MainActivity) getActivity()).updateNavUI("HOME");
             }
         });
+
+        TextView btnFilter = view.findViewById(R.id.btnFilter);
+        if (btnFilter != null) {
+            btnFilter.setOnClickListener(v -> {
+                android.view.View customView = getLayoutInflater().inflate(R.layout.layout_custom_filter_dropdown, null);
+                android.widget.PopupWindow popup = new android.widget.PopupWindow(customView, 
+                        android.view.ViewGroup.LayoutParams.WRAP_CONTENT, 
+                        android.view.ViewGroup.LayoutParams.WRAP_CONTENT, true);
+                
+                popup.setBackgroundDrawable(new android.graphics.drawable.ColorDrawable(android.graphics.Color.TRANSPARENT));
+                popup.setElevation(10f);
+
+                android.widget.TextView menuAll = customView.findViewById(R.id.menuAll);
+                android.widget.TextView menuDeposits = customView.findViewById(R.id.menuDeposits);
+                android.widget.TextView menuOrders = customView.findViewById(R.id.menuOrders);
+
+                android.view.View.OnClickListener menuListener = item -> {
+                    currentFilter = ((android.widget.TextView)item).getText().toString();
+                    btnFilter.setText("Filter: " + currentFilter + " ▼");
+                    applyFilter();
+                    popup.dismiss();
+                };
+
+                menuAll.setOnClickListener(menuListener);
+                menuDeposits.setOnClickListener(menuListener);
+                menuOrders.setOnClickListener(menuListener);
+
+                popup.showAsDropDown(btnFilter, 0, 10);
+            });
+        }
+
+        View btnSeeAll = view.findViewById(R.id.btnSeeAllTransactions);
+        if (btnSeeAll != null) {
+            btnSeeAll.setOnClickListener(v -> {
+                android.content.Intent intent = new android.content.Intent(requireContext(), AllTransactionsActivity.class);
+                startActivity(intent);
+            });
+        }
 
         view.findViewById(R.id.btnAddMoneyCard).setOnClickListener(v -> {
             com.google.android.material.dialog.MaterialAlertDialogBuilder builder = new com.google.android.material.dialog.MaterialAlertDialogBuilder(requireContext());
@@ -115,9 +155,26 @@ public class WalletFragment extends Fragment {
         });
 
         viewModel.transactions.observe(getViewLifecycleOwner(), transactions -> {
-            TransactionAdapter adapter = new TransactionAdapter(transactions);
-            rvTransactions.setAdapter(adapter);
+            if (transactions != null) {
+                allTransactions = transactions;
+                applyFilter();
+            }
         });
+    }
+
+    private void applyFilter() {
+        List<Transaction> filteredList = new ArrayList<>();
+        for (Transaction t : allTransactions) {
+            if ("All".equals(currentFilter)) {
+                filteredList.add(t);
+            } else if ("Deposits".equals(currentFilter)) {
+                if (t.isCredit()) filteredList.add(t);
+            } else if ("Orders".equals(currentFilter)) {
+                if (!t.isCredit()) filteredList.add(t);
+            }
+        }
+        TransactionAdapter adapter = new TransactionAdapter(filteredList);
+        rvTransactions.setAdapter(adapter);
     }
 
     private void setupTransactions() {

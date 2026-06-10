@@ -13,7 +13,9 @@ firebaseFirestore = "25.1.1"
 playServicesAuth = "20.7.0"
 playServicesAuthPhone = "18.1.0"
 volley = "1.2.1"
-
+firebaseCrashlyticsPlugin = "3.0.2"
+firebaseCrashlytics = "19.2.1"
+firebaseAnalytics = "22.1.2"
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
@@ -27,8 +29,10 @@ firebase-firestore = { group = "com.google.firebase", name = "firebase-firestore
 play-services-auth = { group = "com.google.android.gms", name = "play-services-auth", version.ref = "playServicesAuth" }
 play-services-auth-api-phone = { group = "com.google.android.gms", name = "play-services-auth-api-phone", version.ref = "playServicesAuthPhone" }
 volley = { group = "com.android.volley", name = "volley", version.ref = "volley" }
-
+firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics", version.ref = "firebaseCrashlytics" }
+firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics", version.ref = "firebaseAnalytics" }
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 google-gms-google-services = { id = "com.google.gms.google-services", version.ref = "googleGmsGoogleServices" }
+firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebaseCrashlyticsPlugin" }
 
