@@ -201,11 +201,8 @@ public class SavedAddressActivity extends AppCompatActivity {
                             }
                         }
                     }
-                    if (!previousAddresses.isEmpty()) {
-                        layoutPreviousAddresses.setVisibility(View.VISIBLE);
-                    } else {
-                        layoutPreviousAddresses.setVisibility(View.GONE);
-                    }
+                    // Hidden for now
+                    layoutPreviousAddresses.setVisibility(View.GONE);
                     addressAdapter.notifyDataSetChanged();
                 });
             }
@@ -245,7 +242,8 @@ public class SavedAddressActivity extends AppCompatActivity {
                 Toast.makeText(SavedAddressActivity.this, "Failed to delete address", Toast.LENGTH_SHORT).show();
                 previousAddresses.add(position, address);
                 addressAdapter.notifyItemInserted(position);
-                layoutPreviousAddresses.setVisibility(View.VISIBLE);
+                // Hidden for now
+                layoutPreviousAddresses.setVisibility(View.GONE);
             }
         });
     }

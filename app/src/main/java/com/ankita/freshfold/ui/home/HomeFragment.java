@@ -28,6 +28,13 @@ import com.ankita.freshfold.viewmodel.HomeViewModel;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import com.ankita.freshfold.NotificationHelper;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class HomeFragment extends Fragment {
     
@@ -214,9 +221,16 @@ public class HomeFragment extends Fragment {
 
     private void setupInteractions(View view) {
         View btnNotification = view.findViewById(R.id.btnNotification);
+        View viewNotificationBadge = view.findViewById(R.id.viewNotificationBadge);
+
+        if (viewNotificationBadge != null) {
+            boolean hasUnread = com.ankita.freshfold.NotificationHelper.hasUnreadNotifications(requireContext());
+            viewNotificationBadge.setVisibility(hasUnread ? View.VISIBLE : View.GONE);
+        }
+
         if (btnNotification != null) {
             btnNotification.setOnClickListener(v -> {
-                android.widget.Toast.makeText(requireContext(), "Notifications coming soon!", android.widget.Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(requireContext(), com.ankita.freshfold.ui.profile.NotificationActivity.class));
             });
             applyScaleInteraction(btnNotification);
         }
@@ -343,6 +357,13 @@ public class HomeFragment extends Fragment {
             bannerHandler.removeCallbacks(bannerRunnable);
             bannerHandler.postDelayed(bannerRunnable, BANNER_SCROLL_DELAY_MS);
         }
+        
+        // Refresh notification badge when returning to fragment
+        View viewNotificationBadge = getView() != null ? getView().findViewById(R.id.viewNotificationBadge) : null;
+        if (viewNotificationBadge != null) {
+            boolean hasUnread = com.ankita.freshfold.NotificationHelper.hasUnreadNotifications(requireContext());
+            viewNotificationBadge.setVisibility(hasUnread ? View.VISIBLE : View.GONE);
+        }
     }
 
     @Override
@@ -360,5 +381,88 @@ public class HomeFragment extends Fragment {
             bannerHandler.removeCallbacks(bannerRunnable);
         }
         bannerViewPager = null;
+    }
+
+    private void showNotificationsDialog(View badgeView) {
+        BottomSheetDialog dialog = new BottomSheetDialog(requireContext(), R.style.BottomSheetDialogTheme);
+        View dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_notifications, null);
+        dialog.setContentView(dialogView);
+
+        View layoutEmptyState = dialogView.findViewById(R.id.layoutEmptyState);
+        RecyclerView rvNotifications = dialogView.findViewById(R.id.rvNotifications);
+        View btnDismiss = dialogView.findViewById(R.id.btnDismiss);
+
+        if (btnDismiss != null) {
+            btnDismiss.setOnClickListener(v -> dialog.dismiss());
+        }
+
+        List<NotificationHelper.AppNotification> list = NotificationHelper.getNotifications(requireContext());
+
+        if (list.isEmpty()) {
+            if (layoutEmptyState != null) layoutEmptyState.setVisibility(View.VISIBLE);
+            if (rvNotifications != null) rvNotifications.setVisibility(View.GONE);
+        } else {
+            if (layoutEmptyState != null) layoutEmptyState.setVisibility(View.GONE);
+            if (rvNotifications != null) {
+                rvNotifications.setVisibility(View.VISIBLE);
+                rvNotifications.setLayoutManager(new LinearLayoutManager(requireContext()));
+                rvNotifications.setAdapter(new NotificationAdapter(list));
+            }
+        }
+
+        // Mark all as read when opening notifications
+        NotificationHelper.markAllAsRead(requireContext());
+        if (badgeView != null) {
+            badgeView.setVisibility(View.GONE);
+        }
+
+        dialog.show();
+    }
+
+    private static class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapter.ViewHolder> {
+        private final List<NotificationHelper.AppNotification> list;
+
+        public NotificationAdapter(List<NotificationHelper.AppNotification> list) {
+            this.list = list;
+        }
+
+        @NonNull
+        @Override
+        public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_notification, parent, false);
+            return new ViewHolder(v);
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+            NotificationHelper.AppNotification item = list.get(position);
+            holder.tvTitle.setText(item.title);
+            holder.tvMessage.setText(item.message);
+
+            // SimpleDateFormat for timestamp
+            String dateStr = new SimpleDateFormat("dd MMM, hh:mm a", Locale.getDefault()).format(new Date(item.timestamp));
+            holder.tvTime.setText(dateStr);
+
+            // Unread dot indicator
+            holder.viewUnreadDot.setVisibility(item.isRead ? View.GONE : View.VISIBLE);
+        }
+
+        @Override
+        public int getItemCount() {
+            return list.size();
+        }
+
+        static class ViewHolder extends RecyclerView.ViewHolder {
+            TextView tvTitle, tvMessage, tvTime;
+            View viewUnreadDot;
+
+            public ViewHolder(@NonNull View itemView) {
+                super(itemView);
+                tvTitle = itemView.findViewById(R.id.tvNotificationTitle);
+                tvMessage = itemView.findViewById(R.id.tvNotificationMessage);
+                tvTime = itemView.findViewById(R.id.tvNotificationTime);
+                viewUnreadDot = itemView.findViewById(R.id.viewUnreadDot);
+            }
+        }
     }
 }

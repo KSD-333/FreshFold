@@ -87,8 +87,10 @@ public class IroningConfirmationActivity extends AppCompatActivity {
                 android.widget.Toast.makeText(this, "Ironing Order Placed!", android.widget.Toast.LENGTH_SHORT).show();
 
                 String orderId = getIntent().getStringExtra("order_id_to_clear");
+                String addressDocId = getIntent().getStringExtra("address_doc_id");
                 Intent intent = new Intent(IroningConfirmationActivity.this, com.ankita.freshfold.ui.cart.OrderConfirmationActivity.class);
                 intent.putExtra("order_id", orderId);
+                intent.putExtra("address_doc_id", addressDocId);
                 intent.putExtra("pickup_date", pickupDate);
                 startActivity(intent);
                 finish();
@@ -98,8 +100,10 @@ public class IroningConfirmationActivity extends AppCompatActivity {
                 android.widget.Toast.makeText(this, "Order Confirmed", android.widget.Toast.LENGTH_SHORT).show();
 
                 String orderId = getIntent().getStringExtra("order_id_to_clear");
+                String addressDocId = getIntent().getStringExtra("address_doc_id");
                 Intent intent = new Intent(IroningConfirmationActivity.this, com.ankita.freshfold.ui.cart.OrderConfirmationActivity.class);
                 intent.putExtra("order_id", orderId);
+                intent.putExtra("address_doc_id", addressDocId);
                 intent.putExtra("pickup_date", pickupDate);
                 startActivity(intent);
                 finish();

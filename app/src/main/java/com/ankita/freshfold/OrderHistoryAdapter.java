@@ -149,7 +149,7 @@ public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapte
         }
     }
 
-    private void showOrderSummarySheet(Context context, Order order) {
+    public void showOrderSummarySheet(Context context, Order order) {
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(context);
         View sheetView = LayoutInflater.from(context).inflate(R.layout.layout_order_summary_sheet, null);
         

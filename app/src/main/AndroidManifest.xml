@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <!-- Required for Razorpay to detect UPI apps like PhonePe on Android 11+ -->
     <queries>
@@ -112,6 +113,10 @@
 
         <activity
             android:name=".ui.profile.AboutUsActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.profile.NotificationActivity"
             android:exported="false" />
 
         <activity

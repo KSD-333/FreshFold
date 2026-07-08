@@ -229,6 +229,7 @@ public class PickupSlotActivity extends AppCompatActivity {
                                     intent.putExtra("pickup_date", date);
                                     intent.putExtra("item_count", finalTotalItems);
                                     intent.putExtra("order_id_to_clear", orderIdToClear);
+                                    intent.putExtra("address_doc_id", addressDocId);
                                     startActivity(intent);
                                     finish();
                                 } else {
@@ -237,6 +238,8 @@ public class PickupSlotActivity extends AppCompatActivity {
                                     intent.putExtra("pickup_date", date);
                                     intent.putExtra("services_text", servicesText);
                                     intent.putExtra("total_price", finalTotalPrice);
+                                    intent.putExtra("order_id", orderIdToClear);
+                                    intent.putExtra("address_doc_id", addressDocId);
                                     startActivity(intent);
                                     finish();
                                 }

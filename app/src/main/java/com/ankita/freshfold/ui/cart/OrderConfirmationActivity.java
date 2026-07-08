@@ -46,6 +46,22 @@ public class OrderConfirmationActivity extends AppCompatActivity {
         // Dynamic Data Binding
         bindOrderData();
 
+        // Trigger custom in-app and system status bar notification
+        String pickupDateNotif = getIntent().getStringExtra("pickup_date");
+        String servicesTextNotif = getIntent().getStringExtra("services_text");
+        int totalPriceNotif = getIntent().getIntExtra("total_price", 0);
+        String orderId = getIntent().getStringExtra("order_id");
+        String addressDocId = getIntent().getStringExtra("address_doc_id");
+        
+        if (pickupDateNotif == null || pickupDateNotif.isEmpty()) {
+            pickupDateNotif = "scheduled date";
+        }
+        if (servicesTextNotif == null || servicesTextNotif.isEmpty()) {
+            servicesTextNotif = "laundry services";
+        }
+        com.ankita.freshfold.NotificationHelper.triggerOrderSuccessNotification(
+                this, pickupDateNotif, servicesTextNotif, totalPriceNotif, orderId, addressDocId
+        );
 
         startAnimations();
 

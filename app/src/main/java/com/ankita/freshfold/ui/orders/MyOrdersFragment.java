@@ -114,6 +114,22 @@ public class MyOrdersFragment extends Fragment {
                 // Sort combined orders by timestamp descending
                 java.util.Collections.sort(allOrders, (o1, o2) -> Long.compare(o2.getTimestamp(), o1.getTimestamp()));
                 updateFilter(currentFilter);
+
+                // Auto-open highlighted order summary if requested (e.g. from notification click navigation)
+                if (getArguments() != null && getArguments().containsKey("highlight_order_id")) {
+                    String highlightId = getArguments().getString("highlight_order_id");
+                    if (highlightId != null && !highlightId.isEmpty()) {
+                        for (Order order : allOrders) {
+                            if (highlightId.equals(order.getId())) {
+                                if (adapter != null) {
+                                    adapter.showOrderSummarySheet(requireContext(), order);
+                                }
+                                getArguments().remove("highlight_order_id");
+                                break;
+                            }
+                        }
+                    }
+                }
             })
             .addOnFailureListener(e -> {
                 updateFilter(currentFilter);

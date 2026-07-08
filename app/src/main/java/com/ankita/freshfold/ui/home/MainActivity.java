@@ -71,6 +71,13 @@ public class MainActivity extends AppCompatActivity implements CartPreviewFragme
         // Handle Add More Services navigation from CartActivity
         handleIntent(getIntent());
 
+        // Request Notification Permission on Android 13+
+        if (android.os.Build.VERSION.SDK_INT >= 33) {
+            if (androidx.core.content.ContextCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS) != android.content.pm.PackageManager.PERMISSION_GRANTED) {
+                androidx.core.app.ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.POST_NOTIFICATIONS}, 1010);
+            }
+        }
+
         // Proceed to Checkout button — visible only when cart has items
         btnProceedCheckout = findViewById(R.id.btnProceedCheckout);
         btnProceedCheckout.setOnClickListener(v -> {
@@ -150,6 +157,24 @@ public class MainActivity extends AppCompatActivity implements CartPreviewFragme
 
     private void handleIntent(android.content.Intent intent) {
         if (intent == null) return;
+        if (intent.getBooleanExtra("open_notifications", false)) {
+            intent.removeExtra("open_notifications");
+            startActivity(new Intent(this, com.ankita.freshfold.ui.profile.NotificationActivity.class));
+        }
+        if (intent.hasExtra("navigate_to_fragment")) {
+            String fragmentTag = intent.getStringExtra("navigate_to_fragment");
+            if ("ORDERS".equals(fragmentTag)) {
+                String highlightOrderId = intent.getStringExtra("highlight_order_id");
+                com.ankita.freshfold.ui.orders.MyOrdersFragment fragment = new com.ankita.freshfold.ui.orders.MyOrdersFragment();
+                if (highlightOrderId != null) {
+                    android.os.Bundle args = new android.os.Bundle();
+                    args.putString("highlight_order_id", highlightOrderId);
+                    fragment.setArguments(args);
+                }
+                loadFragment(fragment, "ORDERS");
+                updateNavUI("PROFILE");
+            }
+        }
 
 
 

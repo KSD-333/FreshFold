@@ -103,9 +103,12 @@ public class ProfileFragment extends Fragment {
 
         // ── Saved Address click → open SavedAddressActivity (read-only address from registration) ──
         View rowSavedAddress = view.findViewById(R.id.rowSavedAddress);
+        View dividerSavedAddress = view.findViewById(R.id.dividerSavedAddress);
         if (rowSavedAddress != null) {
-            rowSavedAddress.setOnClickListener(v ->
-                startActivity(new Intent(requireContext(), SavedAddressActivity.class)));
+            rowSavedAddress.setVisibility(View.GONE);
+        }
+        if (dividerSavedAddress != null) {
+            dividerSavedAddress.setVisibility(View.GONE);
         }
 
         // ── Edit button on profile card → open PersonalInfoActivity in edit mode ──

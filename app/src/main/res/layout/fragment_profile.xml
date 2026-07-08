@@ -305,8 +305,8 @@
 
                 <include android:id="@+id/rowPersonalInfo" layout="@layout/item_profile_menu_row" />
                 <View style="@style/ProfileDivider" />
-                <include android:id="@+id/rowSavedAddress" layout="@layout/item_profile_menu_row" />
-                <View style="@style/ProfileDivider" />
+                <include android:id="@+id/rowSavedAddress" layout="@layout/item_profile_menu_row" android:visibility="gone" />
+                <View android:id="@+id/dividerSavedAddress" style="@style/ProfileDivider" android:visibility="gone" />
                 <include android:id="@+id/rowPaymentMethods" layout="@layout/item_profile_menu_row" />
                 <View style="@style/ProfileDivider" />
                 <include android:id="@+id/rowMyOrders" layout="@layout/item_profile_menu_row" />
